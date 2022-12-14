@@ -1,0 +1,32 @@
+///                                                                           
+/// Langulus::Module::ImGui                                                   
+/// Copyright(C) 2022 Dimo Markov <langulusteam@gmail.com>                    
+///                                                                           
+/// Distributed under GNU General Public License v3+                          
+/// See LICENSE file, or https://www.gnu.org/licenses                         
+///                                                                           
+#pragma once
+#include "Common.hpp"
+
+///                                                                           
+///   GUI Item                                                                
+///                                                                           
+/// A single widget inside of a GUI system                                    
+///                                                                           
+class GUIItem : public Unit {
+   LANGULUS(ABSTRACT) false;
+   LANGULUS(PRODUCER) GUISystem;
+   LANGULUS_BASES(Unit);
+   LANGULUS_VERBS(Verbs::Create);
+
+private:
+
+public:
+   GUIItem(const Any&);
+   ~GUIItem();
+
+   void Create(Verb&);
+
+   virtual void Refresh();
+};
+
