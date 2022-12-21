@@ -19,7 +19,13 @@ include_directories(${ImGui_SOURCE_DIR})
 
 # Build the module                                                          
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/source SOURCE_FILES)
-add_library(Mod.ImGui SHARED ${SOURCE_FILES})
+add_library(Mod.ImGui SHARED
+    ${ImGui_SOURCE_DIR}/imgui.cpp
+    ${ImGui_SOURCE_DIR}/imgui_draw.cpp
+    ${ImGui_SOURCE_DIR}/imgui_widgets.cpp
+    ${ImGui_SOURCE_DIR}/imgui_tables.cpp
+    ${SOURCE_FILES}
+)
 
 target_link_libraries(Mod.ImGui
     PUBLIC      Langulus.Framework

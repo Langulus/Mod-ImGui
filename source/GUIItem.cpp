@@ -5,22 +5,17 @@
 /// Distributed under GNU General Public License v3+                          
 /// See LICENSE file, or https://www.gnu.org/licenses                         
 ///                                                                           
-#pragma once
-#include <Langulus.hpp>
+#include "GUIItem.hpp"
+#include "GUI.hpp"
 
-using namespace Langulus;
-using namespace Langulus::Flow;
-using namespace Langulus::Anyness;
-using namespace Langulus::Entity;
-using namespace Langulus::Math;
+/// GUI item construction                                                     
+///   @param descriptor - instructions for configuring the item               
+GUIItem::GUIItem(const Any& descriptor)
+   : Unit {MetaOf<GUIItem>(), descriptor}
+   , mContents {this} { }
 
-class GUI;
-class GUISystem;
-class GUIItem;
+/// React on environmental change                                             
+void GUIItem::Refresh() {
 
-/// Include ImGui                                                             
-#include <imgui.h>
+}
 
-#if LANGULUS(DEBUG)
-   #define IMGUI_VULKAN_DEBUG_REPORT
-#endif

@@ -17,15 +17,13 @@ class GUIItem : public Unit {
    LANGULUS(ABSTRACT) false;
    LANGULUS(PRODUCER) GUISystem;
    LANGULUS_BASES(Unit);
-   LANGULUS_VERBS(Verbs::Create);
 
 private:
+   Any mContents;
 
 public:
    GUIItem(const Any&);
-   ~GUIItem();
-
-   void Create(Verb&);
+   ~GUIItem() = default;
 
    virtual void Refresh();
 };
