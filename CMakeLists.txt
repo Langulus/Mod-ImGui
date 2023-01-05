@@ -1,7 +1,7 @@
 project(Langulus.Mod.ImGui)
 
 # We're importing symbols from Langulus.Framework                           
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 remove_definitions(-DLANGULUS_EXPORT_ALL)
 if(NOT WIN32)
     add_compile_options(-fvisibility=hidden)

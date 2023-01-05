@@ -19,6 +19,12 @@ class GUISystem;
 class GUIItem;
 
 /// Include ImGui                                                             
+#if defined(LANGULUS_EXPORT_ALL) || defined(LANGULUS_EXPORT_IMGUI)
+   #define IMGUI_API LANGULUS_EXPORT()
+#else
+   #define IMGUI_API LANGULUS_IMPORT()
+#endif
+
 #include <imgui.h>
 
 #if LANGULUS(DEBUG)

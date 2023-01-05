@@ -1,6 +1,6 @@
 ///                                                                           
-/// Langulus::Module::GLFW                                                    
-/// Copyright(C) 2015 Dimo Markov <langulusteam@gmail.com>                    
+/// Langulus::Module::ImGui                                                   
+/// Copyright(C) 2022 Dimo Markov <langulusteam@gmail.com>                    
 ///                                                                           
 /// Distributed under GNU General Public License v3+                          
 /// See LICENSE file, or https://www.gnu.org/licenses                         
@@ -14,20 +14,22 @@ CATCH_TRANSLATE_EXCEPTION(::Langulus::Exception const& ex) {
    return ::std::string {Token {serialized}};
 }
 
-SCENARIO("Window creation", "[window]") {
+SCENARIO("GUI creation", "[gui]") {
    GIVEN("A root entity") {
       // Create root entity                                             
       Thing root;
-      root.AddTrait(Traits::Name {"ROOT"_text});
+      root.SetName("ROOT"_text);
 
       // Create runtime at the root                                     
-      auto runtime = root.CreateRuntime();
+      root.CreateRuntime();
 
-      // Load GLFW module                                               
-      auto module = root.LoadMod("GLFW");
+      // Load ImGui module                                               
+      root.LoadMod("GLFW");
+      root.LoadMod("ImGui");
 
-      WHEN("The window is created") {
+      WHEN("The GUI system is created") {
          root.CreateUnitToken("Window");
+         root.CreateUnitToken("GUISystem");
 
          // Update once                                                 
          root.Update(Time::zero());

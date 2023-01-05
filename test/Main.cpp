@@ -1,6 +1,6 @@
 ///                                                                           
-/// Langulus::Module::GLFW                                                    
-/// Copyright(C) 2015 Dimo Markov <langulusteam@gmail.com>                    
+/// Langulus::Module::ImGui                                                   
+/// Copyright(C) 2022 Dimo Markov <langulusteam@gmail.com>                    
 ///                                                                           
 /// Distributed under GNU General Public License v3+                          
 /// See LICENSE file, or https://www.gnu.org/licenses                         
