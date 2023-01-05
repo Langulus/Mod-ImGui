@@ -1,14 +1,6 @@
 project(Langulus.Mod.ImGui)
 
-# We're importing symbols from Langulus.Framework                           
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-remove_definitions(-DLANGULUS_EXPORT_ALL)
-if(NOT WIN32)
-    add_compile_options(-fvisibility=hidden)
-endif()
-
 # Configure ImGui library, it will be statically built inside this module   
-message(STATUS "Configuring external project: ImGui...")
 download_project(
     PROJ                ImGui
     GIT_REPOSITORY      https://github.com/ocornut/imgui.git
@@ -18,18 +10,16 @@ download_project(
 include_directories(${ImGui_SOURCE_DIR})
 
 # Build the module                                                          
-aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/source SOURCE_FILES)
+aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/source LANGULUS_MOD_IMGUI_SOURCES)
 add_library(Mod.ImGui SHARED
     ${ImGui_SOURCE_DIR}/imgui.cpp
     ${ImGui_SOURCE_DIR}/imgui_draw.cpp
     ${ImGui_SOURCE_DIR}/imgui_widgets.cpp
     ${ImGui_SOURCE_DIR}/imgui_tables.cpp
-    ${SOURCE_FILES}
+    ${LANGULUS_MOD_IMGUI_SOURCES}
 )
 
-target_link_libraries(Mod.ImGui
-    PUBLIC      Langulus.Framework
-)
+target_link_libraries(Mod.ImGui PRIVATE Langulus.Framework)
 
 if(BUILD_TESTING)
     add_subdirectory(test)
