@@ -28,9 +28,11 @@ void SetClipboardText(void* user_data, const char* text) {
 }
 
 /// GUI system construction                                                   
+///   @param producer - the system producer                                   
 ///   @param descriptor - instructions for configuring the GUI                
-GUISystem::GUISystem(const Any& descriptor)
+GUISystem::GUISystem(GUI* producer, const Any& descriptor)
    : Unit {MetaOf<GUISystem>(), descriptor}
+   , ProducedFrom {producer, descriptor}
    , mItems {this} {
    // Seek a window in the descriptor & hierarchy                       
    mWindow = mOwners.SeekUnit("Window", descriptor);

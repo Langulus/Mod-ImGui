@@ -15,8 +15,8 @@ using namespace Langulus::Entity;
 using namespace Langulus::Math;
 
 class GUI;
-class GUISystem;
-class GUIItem;
+struct GUISystem;
+struct GUIItem;
 
 /// Include ImGui                                                             
 #include <imgui.h>

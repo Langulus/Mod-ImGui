@@ -8,14 +8,14 @@
 #pragma once
 #include "GUIItem.hpp"
 
+
 ///                                                                           
 ///   GUI System                                                              
 ///                                                                           
 /// Manages and produces GUI items that interact within an isolated system    
 ///                                                                           
-class GUISystem : public Unit {
+struct GUISystem final : Unit, ProducedFrom<GUI> {
    LANGULUS(ABSTRACT) false;
-   LANGULUS(PRODUCER) GUI;
    LANGULUS_BASES(Unit);
    LANGULUS_VERBS(Verbs::Create);
 
@@ -44,13 +44,13 @@ private:
    TFactory<GUIItem> mItems;
 
 public:
-   GUISystem(const Any&);
+   GUISystem(GUI*, const Any&);
    ~GUISystem();
 
    void Create(Verb&);
    void Draw(Verb&);
 
-   virtual void Refresh();
+   void Refresh();
 
    NOD() auto GetWindow() const noexcept { return mWindow; }
    NOD() auto& GetClipboard() noexcept { return mClipboard; }

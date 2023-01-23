@@ -13,7 +13,7 @@
 ///                                                                           
 /// A single widget inside of a GUI system                                    
 ///                                                                           
-class GUIItem : public Unit {
+struct GUIItem final : Unit {
    LANGULUS(ABSTRACT) false;
    LANGULUS(PRODUCER) GUISystem;
    LANGULUS_BASES(Unit);
@@ -25,6 +25,6 @@ public:
    GUIItem(const Any&);
    ~GUIItem() = default;
 
-   virtual void Refresh();
+   void Refresh();
 };
 
