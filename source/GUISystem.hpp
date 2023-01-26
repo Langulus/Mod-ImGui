@@ -21,14 +21,13 @@ struct GUISystem final : Unit, ProducedFrom<GUI> {
 
 private:
    ImGuiContext* mContext {};
-
-   Unit*    mWindow {};
-   Unit*    mRenderer {};
-   double   mTime {};
-   Unit*    mMouseWindow {};
-   Unit*    mMouseCursors[ImGuiMouseCursor_COUNT] {};
-   ImVec2   mLastValidMousePos {};
-   Text     mClipboard;
+   A::Window* mWindow {};
+   A::Renderer* mRenderer {};
+   double mTime {};
+   Unit* mMouseWindow {};
+   A::Cursor* mMouseCursors[ImGuiMouseCursor_COUNT] {};
+   ImVec2 mLastValidMousePos {};
+   Text mClipboard;
 
    // Chain GLFW callbacks: our callbacks will call the user's previously installed callbacks, if any.
    /*GLFWwindowfocusfun      PrevUserCallbackWindowFocus;

@@ -35,11 +35,11 @@ GUISystem::GUISystem(GUI* producer, const Any& descriptor)
    , ProducedFrom {producer, descriptor}
    , mItems {this} {
    // Seek a window in the descriptor & hierarchy                       
-   mWindow = mOwners.SeekUnit("Window", descriptor);
+   mWindow = mOwners.template SeekUnit<A::Window>(descriptor);
    LANGULUS_ASSERT(mWindow, Construct, "No window available for UI");
 
    // Seek a renderer in the descriptor & hierarchy                     
-   mRenderer = mOwners.SeekUnit("Renderer", descriptor);
+   mRenderer = mOwners.template SeekUnit<A::Renderer>(descriptor);
    LANGULUS_ASSERT(mRenderer, Construct, "No renderer available for UI");
 
    // Create the context for the GUI system                             
@@ -73,31 +73,31 @@ GUISystem::GUISystem(GUI* producer, const Any& descriptor)
 
    // Find available mouse cursors                                      
    mMouseCursors[ImGuiMouseCursor_Arrow] = 
-      mOwners.SeekUnit(Construct::FromToken("Cursor", "arrow"_text), descriptor);
+      mOwners.SeekUnit(Construct::From<A::Cursor>("arrow"_text), descriptor);
       // glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
    mMouseCursors[ImGuiMouseCursor_TextInput] = 
-      mOwners.SeekUnit(Construct::FromToken("Cursor", "ibeam"_text), descriptor);
+      mOwners.SeekUnit(Construct::From<A::Cursor>("ibeam"_text), descriptor);
       // glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeNS] = 
-      mOwners.SeekUnit(Construct::FromToken("Cursor", "resize_vertical"_text), descriptor);
+      mOwners.SeekUnit(Construct::From<A::Cursor>("resize_vertical"_text), descriptor);
       // glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeEW] =
-      mOwners.SeekUnit(Construct::FromToken("Cursor", "resize_horizontal"_text), descriptor);
+      mOwners.SeekUnit(Construct::From<A::Cursor>("resize_horizontal"_text), descriptor);
       // glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
    mMouseCursors[ImGuiMouseCursor_Hand] = 
-      mOwners.SeekUnit(Construct::FromToken("Cursor", "hand"_text), descriptor);
+      mOwners.SeekUnit(Construct::From<A::Cursor>("hand"_text), descriptor);
       // glfwCreateStandardCursor(GLFW_HAND_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeAll] = 
-      mOwners.SeekUnit(Construct::FromToken("Cursor", "resize_all"_text), descriptor);
+      mOwners.SeekUnit(Construct::From<A::Cursor>("resize_all"_text), descriptor);
       // glfwCreateStandardCursor(GLFW_RESIZE_ALL_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeNESW] = 
-      mOwners.SeekUnit(Construct::FromToken("Cursor", "resize_nesw"_text), descriptor);
+      mOwners.SeekUnit(Construct::From<A::Cursor>("resize_nesw"_text), descriptor);
       // glfwCreateStandardCursor(GLFW_RESIZE_NESW_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeNWSE] = 
-      mOwners.SeekUnit(Construct::FromToken("Cursor", "resize_nwse"_text), descriptor);
+      mOwners.SeekUnit(Construct::From<A::Cursor>("resize_nwse"_text), descriptor);
       // glfwCreateStandardCursor(GLFW_RESIZE_NWSE_CURSOR);
    mMouseCursors[ImGuiMouseCursor_NotAllowed] = 
-      mOwners.SeekUnit(Construct::FromToken("Cursor", "nope"_text), descriptor);
+      mOwners.SeekUnit(Construct::From<A::Cursor>("nope"_text), descriptor);
       // glfwCreateStandardCursor(GLFW_NOT_ALLOWED_CURSOR);
 
    /*{
