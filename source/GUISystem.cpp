@@ -35,11 +35,11 @@ GUISystem::GUISystem(GUI* producer, const Any& descriptor)
    , ProducedFrom {producer, descriptor}
    , mItems {this} {
    // Seek a window in the descriptor & hierarchy                       
-   mWindow = SeekUnit<A::Window>(descriptor);
+   mWindow = SeekUnitAux<A::Window>(descriptor);
    LANGULUS_ASSERT(mWindow, Construct, "No window available for UI");
 
    // Seek a renderer in the descriptor & hierarchy                     
-   mRenderer = SeekUnit<A::Renderer>(descriptor);
+   mRenderer = SeekUnitAux<A::Renderer>(descriptor);
    LANGULUS_ASSERT(mRenderer, Construct, "No renderer available for UI");
 
    // Create the context for the GUI system                             
@@ -73,31 +73,31 @@ GUISystem::GUISystem(GUI* producer, const Any& descriptor)
 
    // Find available mouse cursors                                      
    mMouseCursors[ImGuiMouseCursor_Arrow] =
-      SeekUnitExt<A::Cursor>(descriptor, "arrow"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "arrow"_text);
       // glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
    mMouseCursors[ImGuiMouseCursor_TextInput] = 
-      SeekUnitExt<A::Cursor>(descriptor, "ibeam"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "ibeam"_text);
       // glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeNS] = 
-      SeekUnitExt<A::Cursor>(descriptor, "resize_vertical"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_vertical"_text);
       // glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeEW] =
-      SeekUnitExt<A::Cursor>(descriptor, "resize_horizontal"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_horizontal"_text);
       // glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
    mMouseCursors[ImGuiMouseCursor_Hand] = 
-      SeekUnitExt<A::Cursor>(descriptor, "hand"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "hand"_text);
       // glfwCreateStandardCursor(GLFW_HAND_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeAll] = 
-      SeekUnitExt<A::Cursor>(descriptor, "resize_all"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_all"_text);
       // glfwCreateStandardCursor(GLFW_RESIZE_ALL_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeNESW] = 
-      SeekUnitExt<A::Cursor>(descriptor, "resize_nesw"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_nesw"_text);
       // glfwCreateStandardCursor(GLFW_RESIZE_NESW_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeNWSE] = 
-      SeekUnitExt<A::Cursor>(descriptor, "resize_nwse"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_nwse"_text);
       // glfwCreateStandardCursor(GLFW_RESIZE_NWSE_CURSOR);
    mMouseCursors[ImGuiMouseCursor_NotAllowed] = 
-      SeekUnitExt<A::Cursor>(descriptor, "nope"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "nope"_text);
       // glfwCreateStandardCursor(GLFW_NOT_ALLOWED_CURSOR);
 
    /*{
