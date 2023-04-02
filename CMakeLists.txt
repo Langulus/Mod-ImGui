@@ -19,6 +19,10 @@ add_library(Mod.ImGui SHARED
     ${LANGULUS_MOD_IMGUI_SOURCES}
 )
 
+if (MSVC)
+    target_compile_options(Mod.ImGui PRIVATE /bigobj)
+endif()
+
 target_link_libraries(Mod.ImGui PRIVATE Langulus.Framework)
 
 if(BUILD_TESTING)
