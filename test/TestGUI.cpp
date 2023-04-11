@@ -27,9 +27,23 @@ SCENARIO("GUI creation", "[gui]") {
       root.LoadMod("GLFW");
       root.LoadMod("ImGui");
 
-      WHEN("The GUI system is created") {
+      WHEN("The GUI system is created via tokens") {
          root.CreateUnitToken("Window");
          root.CreateUnitToken("GUISystem");
+
+         // Update once                                                 
+         root.Update(Time::zero());
+
+         THEN("Various traits change") {
+            root.DumpHierarchy();
+
+            REQUIRE(true);
+         }
+      }
+
+      WHEN("The GUI system is created via abstractions") {
+         root.CreateUnit<A::Window>();
+         root.CreateUnit<A::UI::System>();
 
          // Update once                                                 
          root.Update(Time::zero());
