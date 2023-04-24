@@ -9,13 +9,13 @@
 #include "GUISystem.hpp"
 
 ///                                                                           
-///   GUI manager                                                             
+///   User interface module using ImGUI                                       
 ///                                                                           
 /// Manages and produces GUI systems                                          
 ///                                                                           
-class GUI : public Module {
+struct GUI final : A::UI::Module {
    LANGULUS(ABSTRACT) false;
-   LANGULUS_BASES(Module);
+   LANGULUS_BASES(A::UI::Module);
    LANGULUS_VERBS(Verbs::Create);
 
 private:
@@ -24,10 +24,8 @@ private:
 
 public:
    GUI(Runtime*, const Any&);
-   ~GUI();
 
-   virtual void Update(Time) final;
-
+   void Update(Time);
    void Create(Verb&);
 };
 

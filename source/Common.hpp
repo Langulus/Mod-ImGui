@@ -14,7 +14,7 @@ using namespace Langulus::Anyness;
 using namespace Langulus::Entity;
 using namespace Langulus::Math;
 
-class GUI;
+struct GUI;
 struct GUISystem;
 struct GUIItem;
 

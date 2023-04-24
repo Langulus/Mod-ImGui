@@ -10,13 +10,15 @@
 
 
 ///                                                                           
-///   GUI System                                                              
+///   GUI system                                                              
 ///                                                                           
-/// Manages and produces GUI items that interact within an isolated system    
+/// Manages and produces GUI items that interact with each other within an    
+/// isolated system                                                           
 ///                                                                           
-struct GUISystem final : Unit, ProducedFrom<GUI> {
+struct GUISystem final : A::UI::System, ProducedFrom<GUI> {
    LANGULUS(ABSTRACT) false;
-   LANGULUS_BASES(Unit);
+   LANGULUS(PRODUCER) GUI;
+   LANGULUS_BASES(A::UI::System);
    LANGULUS_VERBS(Verbs::Create);
 
 private:

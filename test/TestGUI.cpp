@@ -25,10 +25,12 @@ SCENARIO("GUI creation", "[gui]") {
 
       // Load ImGui module                                               
       root.LoadMod("GLFW");
+      root.LoadMod("Vulkan");
       root.LoadMod("ImGui");
 
       WHEN("The GUI system is created via tokens") {
          root.CreateUnitToken("Window");
+         root.CreateUnitToken("Renderer");
          root.CreateUnitToken("GUISystem");
 
          // Update once                                                 
@@ -43,6 +45,7 @@ SCENARIO("GUI creation", "[gui]") {
 
       WHEN("The GUI system is created via abstractions") {
          root.CreateUnit<A::Window>();
+         root.CreateUnit<A::Renderer>();
          root.CreateUnit<A::UI::System>();
 
          // Update once                                                 

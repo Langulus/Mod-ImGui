@@ -17,17 +17,11 @@ LANGULUS_DEFINE_MODULE(
 ///   @param runtime - the runtime that owns the module                       
 ///   @param descriptor - instructions for configuring the module             
 GUI::GUI(Runtime* runtime, const Any&)
-   : Module {MetaOf<GUI>(), runtime}
+   : A::UI::Module {MetaOf<GUI>(), runtime}
    , mSystems {this} {
    Logger::Verbose(Self(), "Initializing...");
-
-   // Setup Dear ImGui context                                          
    IMGUI_CHECKVERSION();
    Logger::Verbose(Self(), "Initialized");
-}
-
-/// Module destruction                                                        
-GUI::~GUI() {
 }
 
 /// Module update routine                                                     

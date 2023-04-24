@@ -11,7 +11,7 @@
 /// GUI item construction                                                     
 ///   @param descriptor - instructions for configuring the item               
 GUIItem::GUIItem(const Any& descriptor)
-   : Unit {MetaOf<GUIItem>(), descriptor}
+   : A::UI::Unit {MetaOf<GUIItem>(), descriptor}
    , mContents {this} { }
 
 /// React on environmental change                                             

@@ -9,21 +9,20 @@
 #include "Common.hpp"
 
 ///                                                                           
-///   GUI Item                                                                
+///   GUI item                                                                
 ///                                                                           
 /// A single widget inside of a GUI system                                    
 ///                                                                           
-struct GUIItem final : Unit {
+struct GUIItem final : A::UI::Unit {
    LANGULUS(ABSTRACT) false;
    LANGULUS(PRODUCER) GUISystem;
-   LANGULUS_BASES(Unit);
+   LANGULUS_BASES(A::UI::Unit);
 
 private:
    Any mContents;
 
 public:
    GUIItem(const Any&);
-   ~GUIItem() = default;
 
    void Refresh();
 };

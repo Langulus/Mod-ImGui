@@ -15,7 +15,7 @@ target_link_libraries(Test.Mod.ImGui
 add_dependencies(Test.Mod.ImGui Mod.GLFW Mod.ImGui)
 langulus_copy_dlls(
 	TO		Test.Mod.ImGui
-	FROM	Langulus.Framework Mod.GLFW Mod.ImGui
+	FROM	Langulus.Framework Mod.GLFW Mod.Vulkan Mod.ImGui
 )
 
 add_test(NAME Test.Mod.ImGui COMMAND Test.Mod.ImGui)
