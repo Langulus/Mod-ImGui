@@ -6,6 +6,7 @@
 /// See LICENSE file, or https://www.gnu.org/licenses                         
 ///                                                                           
 #include "Main.hpp"
+#include <Entity/Thing.hpp>
 #include <catch2/catch.hpp>
 
 /// See https://github.com/catchorg/Catch2/blob/devel/docs/tostring.md        
@@ -23,7 +24,7 @@ SCENARIO("GUI creation", "[gui]") {
       // Create runtime at the root                                     
       root.CreateRuntime();
 
-      // Load ImGui module                                               
+      // Load ImGui module                                              
       root.LoadMod("GLFW");
       root.LoadMod("Vulkan");
       root.LoadMod("ImGui");
