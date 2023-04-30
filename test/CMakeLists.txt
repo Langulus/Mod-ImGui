@@ -3,9 +3,9 @@ project(Langulus.Test.Mod.ImGui)
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} LANGULUS_MOD_IMGUI_TEST_SOURCES)
 add_executable(Test.Mod.ImGui ${LANGULUS_MOD_IMGUI_TEST_SOURCES})
 
-#if (MSVC)
-#    target_compile_options(Test.Mod.ImGui PRIVATE /bigobj)
-#endif()
+if (MSVC)
+    target_compile_options(Test.Mod.ImGui PRIVATE /bigobj)
+endif()
 
 target_link_libraries(Test.Mod.ImGui
 	PRIVATE		Langulus.Framework
