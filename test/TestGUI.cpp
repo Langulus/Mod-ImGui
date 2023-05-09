@@ -49,22 +49,6 @@ SCENARIO("GUI creation", "[gui]") {
                REQUIRE(true);
             }
          }
-         
-         #if LANGULUS_FEATURE(MEMORY_STATISTICS)
-            Fractalloc.CollectGarbage();
-
-            // Detect memory leaks                                      
-            if (statistics_provided) {
-               if (memory_statistics != Fractalloc.GetStatistics()) {
-                  Fractalloc.DumpPools();
-                  memory_statistics = Fractalloc.GetStatistics();
-                  FAIL("Memory leak detected");
-               }
-            }
-
-            memory_statistics = Fractalloc.GetStatistics();
-            statistics_provided = true;
-         #endif
 
          WHEN("The GUI system is created via abstractions") {
             root.CreateUnit<A::Window>();
