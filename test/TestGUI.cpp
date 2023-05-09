@@ -51,14 +51,19 @@ SCENARIO("GUI creation", "[gui]") {
          }
          
          #if LANGULUS_FEATURE(MEMORY_STATISTICS)
+            Fractalloc.CollectGarbage();
+
             // Detect memory leaks                                      
-            if (!statistics_provided) {
-               memory_statistics = Fractalloc.GetStatistics();
-               statistics_provided = true;
+            if (statistics_provided) {
+               if (memory_statistics != Fractalloc.GetStatistics()) {
+                  Fractalloc.DumpPools();
+                  memory_statistics = Fractalloc.GetStatistics();
+                  FAIL("Memory leak detected");
+               }
             }
-            else {
-               REQUIRE(memory_statistics == Fractalloc.GetStatistics());
-            }
+
+            memory_statistics = Fractalloc.GetStatistics();
+            statistics_provided = true;
          #endif
 
          WHEN("The GUI system is created via abstractions") {
@@ -77,17 +82,19 @@ SCENARIO("GUI creation", "[gui]") {
          }
          
          #if LANGULUS_FEATURE(MEMORY_STATISTICS)
-            // Detect memory leaks                                      
-            if (!statistics_provided) {
-               memory_statistics = Fractalloc.GetStatistics();
-               statistics_provided = true;
-            }
-            else {
-               if (memory_statistics != Fractalloc.GetStatistics())
-                  Fractalloc.DumpPools();
+            Fractalloc.CollectGarbage();
 
-               REQUIRE(memory_statistics == Fractalloc.GetStatistics());
+            // Detect memory leaks                                      
+            if (statistics_provided) {
+               if (memory_statistics != Fractalloc.GetStatistics()) {
+                  Fractalloc.DumpPools();
+                  memory_statistics = Fractalloc.GetStatistics();
+                  FAIL("Memory leak detected");
+               }
             }
+
+            memory_statistics = Fractalloc.GetStatistics();
+            statistics_provided = true;
          #endif
       }
    }
