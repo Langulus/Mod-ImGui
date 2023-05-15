@@ -1,21 +1,24 @@
-project(Langulus.Test.Mod.ImGui)
+project(LangulusModImGuiTest)
 
-aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} LANGULUS_MOD_IMGUI_TEST_SOURCES)
-add_executable(Test.Mod.ImGui ${LANGULUS_MOD_IMGUI_TEST_SOURCES})
+add_executable(LangulusModImGuiTest
+	Main.cpp
+	TestGUI.cpp
+)
 
-if (MSVC)
-    target_compile_options(Test.Mod.ImGui PRIVATE /bigobj)
-endif()
-
-target_link_libraries(Test.Mod.ImGui
-	PRIVATE		Langulus.Framework
+target_link_libraries(LangulusModImGuiTest
+	PRIVATE		Langulus
 				Catch2
 )
 
-add_dependencies(Test.Mod.ImGui Mod.GLFW Mod.ImGui)
-langulus_copy_dlls(
-	TO		Test.Mod.ImGui
-	FROM	Langulus.Framework Mod.GLFW Mod.Vulkan Mod.ImGui
+add_test(
+	NAME		LangulusModImGuiTest
+	COMMAND		LangulusModImGuiTest
 )
 
-add_test(NAME Test.Mod.ImGui COMMAND Test.Mod.ImGui)
+langulus_copy_dlls(LangulusModImGuiTest ON LangulusModImGuiTest)
+langulus_copy_dlls_advanced(LangulusModImGuiTest
+	TO			LangulusModImGuiTest
+	FROM		LangulusModGLFW
+				LangulusModVulkan
+				LangulusModImGui
+)

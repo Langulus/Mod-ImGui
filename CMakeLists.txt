@@ -1,30 +1,32 @@
-project(Langulus.Mod.ImGui)
+cmake_minimum_required(VERSION 3.24)
+project(Langulus::Mod::ImGui)
 
 # Configure ImGui library, it will be statically built inside this module   
-download_project(
-    PROJ                ImGui
-    GIT_REPOSITORY      https://github.com/ocornut/imgui.git
-    GIT_TAG             master
-    UPDATE_DISCONNECTED 1
+fetch_external_module(
+    ImGui
+    GIT_REPOSITORY  https://github.com/ocornut/imgui.git
+    GIT_TAG         bcfc1ad # master
 )
-include_directories(${ImGui_SOURCE_DIR})
 
 # Build the module                                                          
-aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/source LANGULUS_MOD_IMGUI_SOURCES)
-add_library(Mod.ImGui SHARED
-    ${ImGui_SOURCE_DIR}/imgui.cpp
+add_library(LangulusModImGui SHARED
+	${ImGui_SOURCE_DIR}/imgui.cpp
     ${ImGui_SOURCE_DIR}/imgui_draw.cpp
     ${ImGui_SOURCE_DIR}/imgui_widgets.cpp
     ${ImGui_SOURCE_DIR}/imgui_tables.cpp
-    ${LANGULUS_MOD_IMGUI_SOURCES}
+    source/GUI.cpp
+    source/GUISystem.cpp
+    source/GUIItem.cpp
 )
 
-if (MSVC)
-    target_compile_options(Mod.ImGui PRIVATE /bigobj)
-endif()
+target_link_libraries(LangulusModImGui 
+    PRIVATE     Langulus
+)
 
-target_link_libraries(Mod.ImGui PRIVATE Langulus.Framework)
+target_include_directories(LangulusModImGui
+    PRIVATE     ${ImGui_SOURCE_DIR}
+)
 
-if(BUILD_TESTING)
-    add_subdirectory(test)
+if(LANGULUS_ENABLE_TESTING)
+	add_subdirectory(test)
 endif()
