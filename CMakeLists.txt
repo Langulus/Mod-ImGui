@@ -28,5 +28,6 @@ target_include_directories(LangulusModImGui
 )
 
 if(LANGULUS_ENABLE_TESTING)
+    enable_testing()
 	add_subdirectory(test)
 endif()
