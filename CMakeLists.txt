@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(Langulus::Mod::ImGui)
+project(LangulusModImGui)
 
 # Configure ImGui library, it will be statically built inside this module   
 fetch_external_module(
