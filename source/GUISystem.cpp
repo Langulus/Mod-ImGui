@@ -34,13 +34,14 @@ GUISystem::GUISystem(GUI* producer, const Any& descriptor)
    : A::UI::System {MetaOf<GUISystem>(), descriptor}
    , ProducedFrom {producer, descriptor}
    , mItems {this} {
-   // Seek a window in the descriptor & hierarchy                       
-   //mWindow = SeekUnitAux<A::Window>(descriptor);
-   LANGULUS_ASSERT(mWindow, Construct, "No window available for UI");
+   // Retrieve relevant traits from the environment                     
+   mWindow = SeekUnitAux<A::Window>(descriptor);
+   LANGULUS_ASSERT(mWindow, Construct,
+      "No window available for renderer");
 
-   // Seek a renderer in the descriptor & hierarchy                     
-   //mRenderer = SeekUnitAux<A::Renderer>(descriptor);
-   LANGULUS_ASSERT(mRenderer, Construct, "No renderer available for UI");
+   mRenderer = SeekUnitAux<A::Renderer>(descriptor);
+   LANGULUS_ASSERT(mRenderer, Construct,
+      "No renderer available for UI");
 
    // Create the context for the GUI system                             
    mContext = ImGui::CreateContext();
@@ -67,8 +68,7 @@ GUISystem::GUISystem(GUI* producer, const Any& descriptor)
 
    // Set platform dependent data in viewport                           
    #if LANGULUS_OS(WINDOWS)
-      ImGui::GetMainViewport()->PlatformHandleRaw = 
-         mWindow->GetMember("NativeWindowHandle").As<void*>();
+      ImGui::GetMainViewport()->PlatformHandleRaw = mWindow->GetNativeHandle();
    #endif
 
    // Find available mouse cursors                                      

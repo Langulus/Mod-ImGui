@@ -22,9 +22,10 @@ struct GUISystem final : A::UI::System, ProducedFrom<GUI> {
    LANGULUS_VERBS(Verbs::Create);
 
 private:
+   Ptr<A::Window> mWindow;
+   Ptr<A::Renderer> mRenderer;
+
    ImGuiContext* mContext {};
-   A::Window* mWindow {};
-   A::Renderer* mRenderer {};
    double mTime {};
    Unit* mMouseWindow {};
    A::Cursor* mMouseCursors[ImGuiMouseCursor_COUNT] {};

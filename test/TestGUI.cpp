@@ -36,7 +36,7 @@ SCENARIO("GUI creation", "[gui]") {
          root.LoadMod("ImGui");
 
          WHEN("The GUI system is created via tokens") {
-            root.CreateUnitToken("Window");
+            root.CreateUnitToken("Window", Traits::Size(640, 480));
             root.CreateUnitToken("Renderer");
             root.CreateUnitToken("GUISystem");
 
@@ -51,7 +51,7 @@ SCENARIO("GUI creation", "[gui]") {
          }
 
          WHEN("The GUI system is created via abstractions") {
-            root.CreateUnit<A::Window>();
+            root.CreateUnit<A::Window>(Traits::Size(640, 480));
             root.CreateUnit<A::Renderer>();
             root.CreateUnit<A::UI::System>();
 
