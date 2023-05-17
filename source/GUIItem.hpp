@@ -8,21 +8,19 @@
 #pragma once
 #include "Common.hpp"
 
+
 ///                                                                           
 ///   GUI item                                                                
 ///                                                                           
 /// A single widget inside of a GUI system                                    
 ///                                                                           
-struct GUIItem final : A::UI::Unit {
+struct GUIItem final : A::UI::Unit, ProducedFrom<GUISystem> {
    LANGULUS(ABSTRACT) false;
    LANGULUS(PRODUCER) GUISystem;
    LANGULUS_BASES(A::UI::Unit);
 
-private:
-   Any mContents;
-
 public:
-   GUIItem(const Any&);
+   GUIItem(GUISystem*, const Descriptor&);
 
    void Refresh();
 };

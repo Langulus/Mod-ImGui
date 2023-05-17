@@ -9,10 +9,12 @@
 #include "GUI.hpp"
 
 /// GUI item construction                                                     
+///   @param producer - the system producer                                   
 ///   @param descriptor - instructions for configuring the item               
-GUIItem::GUIItem(const Any& descriptor)
+GUIItem::GUIItem(GUISystem* producer, const Descriptor& descriptor)
    : A::UI::Unit {MetaOf<GUIItem>(), descriptor}
-   , mContents {this} { }
+   , ProducedFrom {producer, descriptor} {
+}
 
 /// React on environmental change                                             
 void GUIItem::Refresh() {

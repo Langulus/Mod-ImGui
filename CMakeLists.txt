@@ -17,6 +17,7 @@ add_library(LangulusModImGui SHARED
     source/GUI.cpp
     source/GUISystem.cpp
     source/GUIItem.cpp
+    source/GUIFont.cpp
 )
 
 target_link_libraries(LangulusModImGui 

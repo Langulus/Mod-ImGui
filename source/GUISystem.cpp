@@ -8,6 +8,7 @@
 #include "GUISystem.hpp"
 #include "GUI.hpp"
 
+
 /// Function used by ImGui to retrieve current system clipboard               
 ///   @param user_data - pointer to the GUI system                            
 ///   @return a pointer to the clipboard text data (null-terminated)          
@@ -30,10 +31,11 @@ void SetClipboardText(void* user_data, const char* text) {
 /// GUI system construction                                                   
 ///   @param producer - the system producer                                   
 ///   @param descriptor - instructions for configuring the GUI                
-GUISystem::GUISystem(GUI* producer, const Any& descriptor)
+GUISystem::GUISystem(GUI* producer, const Descriptor& descriptor)
    : A::UI::System {MetaOf<GUISystem>(), descriptor}
    , ProducedFrom {producer, descriptor}
-   , mItems {this} {
+   , mItems {this}
+   , mFonts {this} {
    // Retrieve relevant traits from the environment                     
    mWindow = SeekUnitAux<A::Window>(descriptor);
    LANGULUS_ASSERT(mWindow, Construct,
@@ -46,25 +48,26 @@ GUISystem::GUISystem(GUI* producer, const Any& descriptor)
    // Create the context for the GUI system                             
    mContext = ImGui::CreateContext();
    ImGui::SetCurrentContext(mContext);
+   ImGui::StyleColorsDark();
 
-   // Pick a color style from descriptor                                
-   {
-      ImGui::StyleColorsDark();
-      //ImGui::StyleColorsLight();
-   }
+   // TODO Pick a color style from descriptor
+   //ImGui::StyleColorsLight();
 
    // Employ the available platform and renderer backends               
-   ImGuiIO& io = ImGui::GetIO();
-   io.BackendPlatformUserData = this;
-   io.BackendPlatformName = "Langulus";
-   io.BackendRendererUserData = this;
-   io.BackendRendererName = "Langulus";
-   io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;          // We can honor GetMouseCursor() values (optional)
-   io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;           // We can honor io.WantSetMousePos requests (optional, rarely used)
-   io.BackendFlags |= ImGuiBackendFlags_RendererHasVtxOffset;     // We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
-   io.SetClipboardTextFn = SetClipboardText;
-   io.GetClipboardTextFn = GetClipboardText;
-   io.ClipboardUserData = mWindow;
+   mIO = &ImGui::GetIO();
+   mIO->BackendPlatformUserData = this;
+   mIO->BackendPlatformName = "Langulus";
+   mIO->BackendRendererUserData = this;
+   mIO->BackendRendererName = "Langulus";
+   // We can honor GetMouseCursor() values (optional)                   
+   mIO->BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+   // We can honor io.WantSetMousePos requests (optional, rarely used)  
+   mIO->BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+   // We can honor the ImDrawCmd::VtxOffset field, allowing meshes      
+   mIO->BackendFlags |= ImGuiBackendFlags_RendererHasVtxOffset;
+   mIO->SetClipboardTextFn = SetClipboardText;
+   mIO->GetClipboardTextFn = GetClipboardText;
+   mIO->ClipboardUserData = mWindow;
 
    // Set platform dependent data in viewport                           
    #if LANGULUS_OS(WINDOWS)
@@ -100,8 +103,20 @@ GUISystem::GUISystem(GUI* producer, const Any& descriptor)
       SeekUnitAuxExt<A::Cursor>(descriptor, "nope"_text);
       // glfwCreateStandardCursor(GLFW_NOT_ALLOWED_CURSOR);
 
-   /*{
+   // Load Fonts                                                        
+   // If no fonts are loaded, dear imgui will use the default font,     
+   // which isn't desirable, because it won't be interfaced by Langulus 
+   // You can also load multiple fonts and use ImGui::PushFont() or     
+   // PopFont() to select them.                                         
+   Verbs::Create createFont {
+      Construct::From<GUIFont>(
+         Traits::Name {"default"_text},
+         Traits::Size {16.0f}
+      )
+   };
+   mFonts.Create(createFont);
 
+   /*{
       // Create font sampler                                            
       {
          VkSamplerCreateInfo info = {};
@@ -270,160 +285,20 @@ GUISystem::GUISystem(GUI* producer, const Any& descriptor)
          info.subpass = subpass;
          vkCreateGraphicsPipelines(device, pipelineCache, 1, &info, allocator, pipeline);
       }
-   }
-
-   // Load Fonts
-   // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
-   // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
-   // - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
-   // - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
-   // - Use '#define IMGUI_ENABLE_FREETYPE' in your imconfig file to use Freetype for higher quality font rendering.
-   // - Read 'docs/FONTS.md' for more instructions and details.
-   // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
-   //io.Fonts->AddFontDefault();
-   //io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 18.0f);
-   //io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
-   //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
-   //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
-   //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-   //IM_ASSERT(font != NULL);
-
-   // Upload Fonts
-   {
-      //ImGui_ImplVulkan_CreateFontsTexture(command_buffer);
-      {
-         unsigned char* pixels;
-         int width, height;
-         io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height); // extract font dimensions from imgui
-         size_t upload_size = width * height * 4 * sizeof(char);
-
-         // Create the Image:
-         {
-            VkImageCreateInfo info = {};
-            info.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-            info.imageType = VK_IMAGE_TYPE_2D;
-            info.format = VK_FORMAT_R8G8B8A8_UNORM;
-            info.extent.width = width;
-            info.extent.height = height;
-            info.extent.depth = 1;
-            info.mipLevels = 1;
-            info.arrayLayers = 1;
-            info.samples = VK_SAMPLE_COUNT_1_BIT;
-            info.tiling = VK_IMAGE_TILING_OPTIMAL;
-            info.usage = VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
-            info.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-            info.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-            vkCreateImage(v->Device, &info, v->Allocator, &bd->FontImage);
-            VkMemoryRequirements req;
-            vkGetImageMemoryRequirements(v->Device, bd->FontImage, &req);
-            VkMemoryAllocateInfo alloc_info = {};
-            alloc_info.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-            alloc_info.allocationSize = req.size;
-            alloc_info.memoryTypeIndex = ImGui_ImplVulkan_MemoryType(VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, req.memoryTypeBits);
-            vkAllocateMemory(v->Device, &alloc_info, v->Allocator, &bd->FontMemory);
-            vkBindImageMemory(v->Device, bd->FontImage, bd->FontMemory, 0);
-         }
-
-         // Create the Image View:
-         {
-            VkImageViewCreateInfo info = {};
-            info.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-            info.image = bd->FontImage;
-            info.viewType = VK_IMAGE_VIEW_TYPE_2D;
-            info.format = VK_FORMAT_R8G8B8A8_UNORM;
-            info.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-            info.subresourceRange.levelCount = 1;
-            info.subresourceRange.layerCount = 1;
-            vkCreateImageView(v->Device, &info, v->Allocator, &bd->FontView);
-         }
-
-         // Create the Descriptor Set:
-         bd->FontDescriptorSet = (VkDescriptorSet)ImGui_ImplVulkan_AddTexture(bd->FontSampler, bd->FontView, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-
-         // Create the Upload Buffer:
-         {
-            VkBufferCreateInfo buffer_info = {};
-            buffer_info.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-            buffer_info.size = upload_size;
-            buffer_info.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
-            buffer_info.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-            vkCreateBuffer(v->Device, &buffer_info, v->Allocator, &bd->UploadBuffer);
-            VkMemoryRequirements req;
-            vkGetBufferMemoryRequirements(v->Device, bd->UploadBuffer, &req);
-            bd->BufferMemoryAlignment = (bd->BufferMemoryAlignment > req.alignment) ? bd->BufferMemoryAlignment : req.alignment;
-            VkMemoryAllocateInfo alloc_info = {};
-            alloc_info.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-            alloc_info.allocationSize = req.size;
-            alloc_info.memoryTypeIndex = ImGui_ImplVulkan_MemoryType(VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT, req.memoryTypeBits);
-            vkAllocateMemory(v->Device, &alloc_info, v->Allocator, &bd->UploadBufferMemory);
-            vkBindBufferMemory(v->Device, bd->UploadBuffer, bd->UploadBufferMemory, 0);
-         }
-
-         // Upload to Buffer:
-         {
-            char* map = nullptr;
-            vkMapMemory(v->Device, bd->UploadBufferMemory, 0, upload_size, 0, (void**)(&map));
-            memcpy(map, pixels, upload_size); //upload generated pixels from imgui
-            VkMappedMemoryRange range[1] = {};
-            range[0].sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
-            range[0].memory = bd->UploadBufferMemory;
-            range[0].size = upload_size;
-            vkFlushMappedMemoryRanges(v->Device, 1, range);
-            vkUnmapMemory(v->Device, bd->UploadBufferMemory);
-         }
-
-         // Copy to Image:
-         {
-            VkImageMemoryBarrier copy_barrier[1] = {};
-            copy_barrier[0].sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-            copy_barrier[0].dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-            copy_barrier[0].oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-            copy_barrier[0].newLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
-            copy_barrier[0].srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-            copy_barrier[0].dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-            copy_barrier[0].image = bd->FontImage;
-            copy_barrier[0].subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-            copy_barrier[0].subresourceRange.levelCount = 1;
-            copy_barrier[0].subresourceRange.layerCount = 1;
-            vkCmdPipelineBarrier(command_buffer, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 0, nullptr, 1, copy_barrier);
-
-            VkBufferImageCopy region = {};
-            region.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-            region.imageSubresource.layerCount = 1;
-            region.imageExtent.width = width;
-            region.imageExtent.height = height;
-            region.imageExtent.depth = 1;
-            vkCmdCopyBufferToImage(command_buffer, bd->UploadBuffer, bd->FontImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
-
-            VkImageMemoryBarrier use_barrier[1] = {};
-            use_barrier[0].sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-            use_barrier[0].srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-            use_barrier[0].dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-            use_barrier[0].oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
-            use_barrier[0].newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-            use_barrier[0].srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-            use_barrier[0].dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-            use_barrier[0].image = bd->FontImage;
-            use_barrier[0].subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-            use_barrier[0].subresourceRange.levelCount = 1;
-            use_barrier[0].subresourceRange.layerCount = 1;
-            vkCmdPipelineBarrier(command_buffer, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0, nullptr, 0, nullptr, 1, use_barrier);
-         }
-
-         // Store our identifier
-         io.Fonts->SetTexID((ImTextureID)bd->FontDescriptorSet);
-      }
    }*/
-
 }
 
+/// GUI system destruction                                                    
 GUISystem::~GUISystem() {
    if (mContext)
       ImGui::DestroyContext(mContext);
 }
 
-void GUISystem::Create(Verb&) {
-
+/// Produce GUI elements and fonts                                            
+///   @param verb - creation verb to satisfy                                  
+void GUISystem::Create(Verb& verb) {
+   mItems.Create(verb);
+   mFonts.Create(verb);
 }
 
 void GUISystem::Draw(Verb&) {

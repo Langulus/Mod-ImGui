@@ -6,22 +6,24 @@
 /// See LICENSE file, or https://www.gnu.org/licenses                         
 ///                                                                           
 #pragma once
-#include <Entity/External.hpp>
+#include "Common.hpp"
 
-using namespace Langulus;
-using namespace Langulus::Flow;
-using namespace Langulus::Anyness;
-using namespace Langulus::Entity;
-using namespace Langulus::Math;
 
-struct GUI;
-struct GUISystem;
-struct GUIItem;
-struct GUIFont;
+///                                                                           
+///   GUI font                                                                
+///                                                                           
+struct GUIFont final : A::UI::Unit, ProducedFrom<GUISystem> {
+   LANGULUS(ABSTRACT) false;
+   LANGULUS(PRODUCER) GUISystem;
+   LANGULUS_BASES(A::UI::Unit);
 
-/// Include ImGui                                                             
-#include <imgui.h>
+private:
+   Own<ImFont*> mFont;
+   Ref<A::Texture> mAtlas;
 
-#if LANGULUS(DEBUG)
-   #define IMGUI_VULKAN_DEBUG_REPORT
-#endif
+public:
+   GUIFont(GUISystem*, const Descriptor&);
+
+   void Refresh() {}
+};
+

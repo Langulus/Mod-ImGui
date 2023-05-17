@@ -7,6 +7,7 @@
 ///                                                                           
 #pragma once
 #include "GUIItem.hpp"
+#include "GUIFont.hpp"
 
 
 ///                                                                           
@@ -25,7 +26,9 @@ private:
    Ptr<A::Window> mWindow;
    Ptr<A::Renderer> mRenderer;
 
-   ImGuiContext* mContext {};
+   Own<ImGuiContext*> mContext;
+   Own<ImGuiIO*> mIO;
+
    double mTime {};
    Unit* mMouseWindow {};
    A::Cursor* mMouseCursors[ImGuiMouseCursor_COUNT] {};
@@ -44,9 +47,10 @@ private:
 
    // List of created GUI items                                         
    TFactory<GUIItem> mItems;
+   TFactoryUnique<GUIFont> mFonts;
 
 public:
-   GUISystem(GUI*, const Any&);
+   GUISystem(GUI*, const Descriptor&);
    ~GUISystem();
 
    void Create(Verb&);
@@ -56,5 +60,60 @@ public:
 
    NOD() auto GetWindow() const noexcept { return mWindow; }
    NOD() auto& GetClipboard() noexcept { return mClipboard; }
+   NOD() ImGuiIO* GetIO() noexcept { return mIO; }
 };
 
+
+
+// Initialization data, for ImGui_ImplVulkan_Init()
+// [Please zero-clear before use!]
+/*struct ImGui_ImplVulkan_InitInfo
+{
+   VkInstance                      Instance;
+   VkPhysicalDevice                PhysicalDevice;
+   VkDevice                        Device;
+   uint32_t                        QueueFamily;
+   VkQueue                         Queue;
+   VkPipelineCache                 PipelineCache;
+   VkDescriptorPool                DescriptorPool;
+   uint32_t                        Subpass;
+   uint32_t                        MinImageCount;          // >= 2
+   uint32_t                        ImageCount;             // >= MinImageCount
+   VkSampleCountFlagBits           MSAASamples;            // >= VK_SAMPLE_COUNT_1_BIT (0 -> default to VK_SAMPLE_COUNT_1_BIT)
+   const VkAllocationCallbacks* Allocator;
+   void                            (*CheckVkResultFn)(VkResult err);
+};*/
+
+/*
+// Vulkan data
+struct ImGui_ImplVulkan_Data
+{
+   ImGui_ImplVulkan_InitInfo   VulkanInitInfo;
+   VkRenderPass                RenderPass;
+   VkDeviceSize                BufferMemoryAlignment;
+   VkPipelineCreateFlags       PipelineCreateFlags;
+   VkDescriptorSetLayout       DescriptorSetLayout;
+   VkPipelineLayout            PipelineLayout;
+   VkPipeline                  Pipeline;
+   uint32_t                    Subpass;
+   VkShaderModule              ShaderModuleVert;
+   VkShaderModule              ShaderModuleFrag;
+
+   // Font data
+   VkSampler                   FontSampler;
+   VkDeviceMemory              FontMemory;
+   VkImage                     FontImage;
+   VkImageView                 FontView;
+   VkDescriptorSet             FontDescriptorSet;
+   VkDeviceMemory              UploadBufferMemory;
+   VkBuffer                    UploadBuffer;
+
+   // Render buffers for main window
+   ImGui_ImplVulkanH_WindowRenderBuffers MainWindowRenderBuffers;
+
+   ImGui_ImplVulkan_Data()
+   {
+      memset((void*)this, 0, sizeof(*this));
+      BufferMemoryAlignment = 256;
+   }
+};*/
