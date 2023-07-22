@@ -19,7 +19,7 @@ GUIFont::GUIFont(GUISystem* producer, const Descriptor& descriptor)
    // Font filename/system name to load                                 
    Text filename;
    SeekTraitAux<Traits::Name>(descriptor, filename);
-   LANGULUS_ASSERT(!filename.IsEmpty(), Construct,
+   LANGULUS_ASSERT(filename, Construct,
       "Empty system name/filename for font");
    filename = filename.Terminate();
 
