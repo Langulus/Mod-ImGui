@@ -100,7 +100,7 @@ struct ImFontConfig {
    Verbs::Create createTexture {
       Construct::From<A::Texture>(
          Traits::Name {fontName},
-         Traits::File {filename},
+         Traits::Path {filename},
          Traits::Size {fontAtlasWidth, fontAtlasHeight},
          Traits::Data {
             Block {{}, MetaOf<RGBA>(), pixelCount, fontData}
