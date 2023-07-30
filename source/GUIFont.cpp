@@ -98,7 +98,7 @@ struct ImFontConfig {
    auto pixelCount = static_cast<Count>(fontAtlasWidth * fontAtlasHeight);
    Text fontName = "Font " + filename + ' ' + size;
    Verbs::Create createTexture {
-      Construct::From<A::Texture>(
+      Construct::From<A::Image>(
          Traits::Name {fontName},
          Traits::Path {filename},
          Traits::Size {fontAtlasWidth, fontAtlasHeight},
@@ -108,13 +108,8 @@ struct ImFontConfig {
       )
    };
 
-   if (!DoInHierarchy(createTexture)) {
-      // Unable to create RAM/VRAM texture                              
-      LANGULUS_THROW(Construct, "Unable to create font atlas");
-   }
-
    // Store atlas and identifier                                        
-   mAtlas = createTexture.GetOutput().As<A::Texture*>();
+   mAtlas = RunIn(createTexture).As<A::Image*>();
    io->SetTexID(mAtlas->GetGPUHandle());
 
 

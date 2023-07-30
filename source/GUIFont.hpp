@@ -19,7 +19,7 @@ struct GUIFont final : A::UI::Unit, ProducedFrom<GUISystem> {
 
 private:
    Own<ImFont*> mFont;
-   Ref<A::Texture> mAtlas;
+   Ref<A::Image> mAtlas;
 
 public:
    GUIFont(GUISystem*, const Descriptor&);
