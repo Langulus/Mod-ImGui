@@ -9,11 +9,6 @@
 #include <Entity/Thing.hpp>
 #include <catch2/catch.hpp>
 
-#if LANGULUS_FEATURE(MEMORY_STATISTICS)
-static bool statistics_provided = false;
-static Anyness::Allocator::Statistics memory_statistics;
-#endif
-
 /// See https://github.com/catchorg/Catch2/blob/devel/docs/tostring.md        
 CATCH_TRANSLATE_EXCEPTION(::Langulus::Exception const& ex) {
    const Text serialized {ex};
@@ -21,11 +16,13 @@ CATCH_TRANSLATE_EXCEPTION(::Langulus::Exception const& ex) {
 }
 
 SCENARIO("GUI creation", "[gui]") {
+   Allocator::State memoryState;
+
    for (int repeat = 0; repeat != 10; ++repeat) {
       GIVEN(std::string("Init and shutdown cycle #") + std::to_string(repeat)) {
          // Create root entity                                          
          Thing root;
-         root.SetName("ROOT"_text);
+         root.SetName("ROOT");
 
          // Create runtime at the root                                  
          root.CreateRuntime();
@@ -36,9 +33,9 @@ SCENARIO("GUI creation", "[gui]") {
          root.LoadMod("ImGui");
 
          WHEN("The GUI system is created via tokens") {
-            root.CreateUnitToken("Window", Traits::Size(640, 480));
-            root.CreateUnitToken("Renderer");
-            root.CreateUnitToken("GUISystem");
+            auto window = root.CreateUnitToken("Window", Traits::Size(640, 480));
+            auto renderer = root.CreateUnitToken("Renderer");
+            auto gui = root.CreateUnitToken("GUISystem");
 
             // Update once                                              
             root.Update(Time::zero());
@@ -46,14 +43,24 @@ SCENARIO("GUI creation", "[gui]") {
             THEN("Various traits change") {
                root.DumpHierarchy();
 
-               REQUIRE(true);
+               REQUIRE(window.GetCount() == 1);
+               REQUIRE(window.CastsTo<A::Window>(1));
+               REQUIRE(window.IsSparse());
+
+               REQUIRE(renderer.GetCount() == 1);
+               REQUIRE(renderer.CastsTo<A::Renderer>(1));
+               REQUIRE(renderer.IsSparse());
+
+               REQUIRE(gui.GetCount() == 1);
+               REQUIRE(gui.CastsTo<A::UI::System>(1));
+               REQUIRE(gui.IsSparse());
             }
          }
 
          WHEN("The GUI system is created via abstractions") {
-            root.CreateUnit<A::Window>(Traits::Size(640, 480));
-            root.CreateUnit<A::Renderer>();
-            root.CreateUnit<A::UI::System>();
+            auto window = root.CreateUnit<A::Window>(Traits::Size(640, 480));
+            auto renderer = root.CreateUnit<A::Renderer>();
+            auto gui = root.CreateUnit<A::UI::System>();
 
             // Update once                                              
             root.Update(Time::zero());
@@ -61,25 +68,22 @@ SCENARIO("GUI creation", "[gui]") {
             THEN("Various traits change") {
                root.DumpHierarchy();
 
-               REQUIRE(true);
+               REQUIRE(window.GetCount() == 1);
+               REQUIRE(window.CastsTo<A::Window>(1));
+               REQUIRE(window.IsSparse());
+
+               REQUIRE(renderer.GetCount() == 1);
+               REQUIRE(renderer.CastsTo<A::Renderer>(1));
+               REQUIRE(renderer.IsSparse());
+
+               REQUIRE(gui.GetCount() == 1);
+               REQUIRE(gui.CastsTo<A::UI::System>(1));
+               REQUIRE(gui.IsSparse());
             }
          }
-         
-         #if LANGULUS_FEATURE(MEMORY_STATISTICS)
-            Fractalloc.CollectGarbage();
 
-            // Detect memory leaks                                      
-            if (statistics_provided) {
-               if (memory_statistics != Fractalloc.GetStatistics()) {
-                  Fractalloc.DumpPools();
-                  memory_statistics = Fractalloc.GetStatistics();
-                  FAIL("Memory leak detected");
-               }
-            }
-
-            memory_statistics = Fractalloc.GetStatistics();
-            statistics_provided = true;
-         #endif
+         // Check for memory leaks after each cycle                     
+         REQUIRE(memoryState.Assert());
       }
    }
 }
