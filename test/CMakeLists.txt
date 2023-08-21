@@ -1,5 +1,3 @@
-project(LangulusModImGuiTest)
-
 add_executable(LangulusModImGuiTest
 	Main.cpp
 	TestGUI.cpp
