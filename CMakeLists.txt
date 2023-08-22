@@ -3,7 +3,6 @@ project(LangulusModImGui
     VERSION         1.0.0
     DESCRIPTION     "Langulus plug-in module for handling user interface using ImGUI library"
     HOMEPAGE_URL    https://langulus.com
-    LANGUAGES       CXX
 )
 
 # Configure ImGui library, it will be statically built inside this module       

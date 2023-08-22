@@ -32,6 +32,7 @@ SCENARIO("GUI creation", "[gui]") {
          root.LoadMod("Vulkan");
          root.LoadMod("ImGui");
 
+      #if LANGULUS_FEATURE(MANAGED_REFLECTION)
          WHEN("The GUI system is created via tokens") {
             auto window = root.CreateUnitToken("Window", Traits::Size(640, 480));
             auto renderer = root.CreateUnitToken("Renderer");
@@ -56,6 +57,7 @@ SCENARIO("GUI creation", "[gui]") {
                REQUIRE(gui.IsSparse());
             }
          }
+      #endif
 
          WHEN("The GUI system is created via abstractions") {
             auto window = root.CreateUnit<A::Window>(Traits::Size(640, 480));
