@@ -16,7 +16,7 @@ LANGULUS_DEFINE_MODULE(
 /// Module construction                                                       
 ///   @param runtime - the runtime that owns the module                       
 ///   @param descriptor - instructions for configuring the module             
-GUI::GUI(Runtime* runtime, const Descriptor&)
+GUI::GUI(Runtime* runtime, const Neat&)
    : A::UI::Module {MetaOf<GUI>(), runtime}
    , mSystems {this} {
    Logger::Verbose(Self(), "Initializing...");

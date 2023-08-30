@@ -25,7 +25,7 @@ private:
    TFactory<GUISystem> mSystems;
 
 public:
-   GUI(Runtime*, const Descriptor&);
+   GUI(Runtime*, const Neat&);
 
    void Update(Time);
    void Create(Verb&);

@@ -22,7 +22,7 @@ private:
    Ref<A::Image> mAtlas;
 
 public:
-   GUIFont(GUISystem*, const Descriptor&);
+   GUIFont(GUISystem*, const Neat&);
 
    void Refresh() {}
 };

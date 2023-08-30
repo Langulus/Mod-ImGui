@@ -50,7 +50,7 @@ private:
    TFactoryUnique<GUIFont> mFonts;
 
 public:
-   GUISystem(GUI*, const Descriptor&);
+   GUISystem(GUI*, const Neat&);
    ~GUISystem();
 
    void Create(Verb&);

@@ -8,12 +8,13 @@
 #include "GUIItem.hpp"
 #include "GUI.hpp"
 #include <Math/Colors.hpp>
+#include <Flow/Verbs/Interpret.hpp>
 
 
 /// GUI item construction                                                     
 ///   @param producer - the system producer                                   
 ///   @param descriptor - instructions for configuring the font               
-GUIFont::GUIFont(GUISystem* producer, const Descriptor& descriptor)
+GUIFont::GUIFont(GUISystem* producer, const Neat& descriptor)
    : A::UI::Unit {MetaOf<GUIFont>(), descriptor}
    , ProducedFrom {producer, descriptor} {
    // Font filename/system name to load                                 
@@ -25,7 +26,7 @@ GUIFont::GUIFont(GUISystem* producer, const Descriptor& descriptor)
 
    // Font size                                                         
    float size;
-   if (!SeekTraitAux<Traits::Size>(descriptor, size)) {
+   if (not SeekTraitAux<Traits::Size>(descriptor, size)) {
       // Not found, use default                                         
       size = 16.0f;
    }

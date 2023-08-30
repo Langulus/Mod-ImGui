@@ -31,7 +31,7 @@ void SetClipboardText(void* user_data, const char* text) {
 /// GUI system construction                                                   
 ///   @param producer - the system producer                                   
 ///   @param descriptor - instructions for configuring the GUI                
-GUISystem::GUISystem(GUI* producer, const Descriptor& descriptor)
+GUISystem::GUISystem(GUI* producer, const Neat& descriptor)
    : A::UI::System {MetaOf<GUISystem>(), descriptor}
    , ProducedFrom {producer, descriptor}
    , mItems {this}

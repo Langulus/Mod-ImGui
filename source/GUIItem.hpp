@@ -20,7 +20,7 @@ struct GUIItem final : A::UI::Unit, ProducedFrom<GUISystem> {
    LANGULUS_BASES(A::UI::Unit);
 
 public:
-   GUIItem(GUISystem*, const Descriptor&);
+   GUIItem(GUISystem*, const Neat&);
 
    void Refresh();
 };
