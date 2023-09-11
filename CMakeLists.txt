@@ -32,7 +32,7 @@ target_include_directories(LangulusModImGui
     PRIVATE     ${ImGui_SOURCE_DIR}
 )
 
-if(LANGULUS_ENABLE_TESTING)
+if(LANGULUS_TESTING)
     enable_testing()
 	add_subdirectory(test)
 endif()
