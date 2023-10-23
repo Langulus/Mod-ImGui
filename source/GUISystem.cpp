@@ -47,7 +47,7 @@ GUISystem::GUISystem(GUI* producer, const Neat& descriptor)
 
    // Create the context for the GUI system                             
    mContext = ImGui::CreateContext();
-   ImGui::SetCurrentContext(mContext);
+   ImGui::SetCurrentContext(*mContext);
    ImGui::StyleColorsDark();
 
    // TODO Pick a color style from descriptor
@@ -67,7 +67,7 @@ GUISystem::GUISystem(GUI* producer, const Neat& descriptor)
    mIO->BackendFlags |= ImGuiBackendFlags_RendererHasVtxOffset;
    mIO->SetClipboardTextFn = SetClipboardText;
    mIO->GetClipboardTextFn = GetClipboardText;
-   mIO->ClipboardUserData = mWindow;
+   mIO->ClipboardUserData = *mWindow;
 
    // Set platform dependent data in viewport                           
    #if LANGULUS_OS(WINDOWS)
@@ -291,7 +291,7 @@ GUISystem::GUISystem(GUI* producer, const Neat& descriptor)
 /// GUI system destruction                                                    
 GUISystem::~GUISystem() {
    if (mContext)
-      ImGui::DestroyContext(mContext);
+      ImGui::DestroyContext(*mContext);
 }
 
 /// Produce GUI elements and fonts                                            

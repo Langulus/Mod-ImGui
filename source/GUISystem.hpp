@@ -60,7 +60,7 @@ public:
 
    NOD() auto GetWindow() const noexcept { return mWindow; }
    NOD() auto& GetClipboard() noexcept { return mClipboard; }
-   NOD() ImGuiIO* GetIO() noexcept { return mIO; }
+   NOD() ImGuiIO* GetIO() const noexcept { return *mIO; }
 };
 
 
