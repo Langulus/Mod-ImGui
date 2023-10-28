@@ -76,31 +76,31 @@ GUISystem::GUISystem(GUI* producer, const Neat& descriptor)
 
    // Find available mouse cursors                                      
    mMouseCursors[ImGuiMouseCursor_Arrow] =
-      SeekUnitAuxExt<A::Cursor>(descriptor, "arrow"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "arrow");
       // glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
    mMouseCursors[ImGuiMouseCursor_TextInput] = 
-      SeekUnitAuxExt<A::Cursor>(descriptor, "ibeam"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "ibeam");
       // glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeNS] = 
-      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_vertical"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_vertical");
       // glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeEW] =
-      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_horizontal"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_horizontal");
       // glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
    mMouseCursors[ImGuiMouseCursor_Hand] = 
-      SeekUnitAuxExt<A::Cursor>(descriptor, "hand"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "hand");
       // glfwCreateStandardCursor(GLFW_HAND_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeAll] = 
-      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_all"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_all");
       // glfwCreateStandardCursor(GLFW_RESIZE_ALL_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeNESW] = 
-      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_nesw"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_nesw");
       // glfwCreateStandardCursor(GLFW_RESIZE_NESW_CURSOR);
    mMouseCursors[ImGuiMouseCursor_ResizeNWSE] = 
-      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_nwse"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "resize_nwse");
       // glfwCreateStandardCursor(GLFW_RESIZE_NWSE_CURSOR);
    mMouseCursors[ImGuiMouseCursor_NotAllowed] = 
-      SeekUnitAuxExt<A::Cursor>(descriptor, "nope"_text);
+      SeekUnitAuxExt<A::Cursor>(descriptor, "nope");
       // glfwCreateStandardCursor(GLFW_NOT_ALLOWED_CURSOR);
 
    // Load Fonts                                                        
@@ -110,7 +110,7 @@ GUISystem::GUISystem(GUI* producer, const Neat& descriptor)
    // PopFont() to select them.                                         
    Verbs::Create createFont {
       Construct::From<GUIFont>(
-         Traits::Name {"default"_text},
+         Traits::Name {"default"},
          Traits::Size {16.0f}
       )
    };
