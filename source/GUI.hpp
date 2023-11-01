@@ -27,7 +27,7 @@ private:
 public:
    GUI(Runtime*, const Neat&);
 
-   void Update(Time);
+   bool Update(Time);
    void Create(Verb&);
 };
 

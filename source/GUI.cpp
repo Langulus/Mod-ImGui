@@ -26,8 +26,8 @@ GUI::GUI(Runtime* runtime, const Neat&)
 
 /// Module update routine                                                     
 ///   @param dt - time from last update                                       
-void GUI::Update(Time) {
-
+bool GUI::Update(Time) {
+   return true;
 }
 
 /// Create/Destroy GUI systems                                                

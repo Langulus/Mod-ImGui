@@ -1,7 +1,10 @@
-add_executable(LangulusModImGuiTest
-	Main.cpp
-	TestGUI.cpp
+file(GLOB_RECURSE
+	LANGULUS_MOD_IMGUI_TEST_SOURCES 
+	LIST_DIRECTORIES FALSE CONFIGURE_DEPENDS
+	*.cpp *.hpp
 )
+
+add_executable(LangulusModImGuiTest ${LANGULUS_MOD_IMGUI_TEST_SOURCES})
 
 target_link_libraries(LangulusModImGuiTest
 	PRIVATE		Langulus
