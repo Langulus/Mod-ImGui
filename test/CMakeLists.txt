@@ -14,4 +14,5 @@ target_link_libraries(LangulusModImGuiTest
 add_test(
 	NAME		LangulusModImGuiTest
 	COMMAND		LangulusModImGuiTest
+	WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )
