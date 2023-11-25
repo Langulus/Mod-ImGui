@@ -11,6 +11,10 @@ target_link_libraries(LangulusModImGuiTest
 				Catch2
 )
 
+add_dependencies(LangulusModImGuiTest
+	LangulusModImGui
+)
+
 add_test(
 	NAME		LangulusModImGuiTest
 	COMMAND		LangulusModImGuiTest
