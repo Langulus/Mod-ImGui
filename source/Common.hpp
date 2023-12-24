@@ -9,10 +9,6 @@
 #include <Entity/External.hpp>
 
 using namespace Langulus;
-using namespace Langulus::Flow;
-using namespace Langulus::Anyness;
-using namespace Langulus::Entity;
-using namespace Langulus::Math;
 
 struct GUI;
 struct GUISystem;
