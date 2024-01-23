@@ -97,7 +97,7 @@ struct ImFontConfig {
    io->GetTexDataAsRGBA32(&fontData, &fontAtlasWidth, &fontAtlasHeight);
 
    auto pixelCount = static_cast<Count>(fontAtlasWidth * fontAtlasHeight);
-   Text fontName = "Font " + filename + ' ' + size;
+   Text fontName {"Font ", filename, ' ', size};
    Verbs::Create createTexture {
       Construct::From<A::Image>(
          Traits::Name {fontName},
