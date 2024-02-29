@@ -435,7 +435,7 @@ void GUISystem::Draw(Verb&) {
 
    // Rendering
    ImGui::Render();
-   ImDrawData* draw_data = ImGui::GetDrawData();
+   //ImDrawData* draw_data = ImGui::GetDrawData();
 
 
    // Record dear imgui primitives into command buffer

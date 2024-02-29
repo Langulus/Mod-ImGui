@@ -29,8 +29,8 @@ private:
    Own<ImGuiContext*> mContext;
    Own<ImGuiIO*> mIO;
 
-   double mTime {};
-   Unit* mMouseWindow {};
+   //double mTime {};
+   //Unit* mMouseWindow {};
    A::Cursor* mMouseCursors[ImGuiMouseCursor_COUNT] {};
    ImVec2 mLastValidMousePos {};
    Text mClipboard;
