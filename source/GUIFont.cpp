@@ -110,7 +110,7 @@ struct ImFontConfig {
    };
 
    // Store atlas and identifier                                        
-   mAtlas = RunIn(createTexture).As<A::Image*>();
+   mAtlas = RunIn(createTexture)->As<A::Image*>();
    io->SetTexID(mAtlas->GetGPUHandle());
 
 

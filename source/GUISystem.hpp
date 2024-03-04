@@ -23,8 +23,8 @@ struct GUISystem final : A::UI::System, ProducedFrom<GUI> {
    LANGULUS_VERBS(Verbs::Create);
 
 private:
-   Ptr<A::Window> mWindow;
-   Ptr<A::Renderer> mRenderer;
+   Ref<A::Window> mWindow;
+   Ref<A::Renderer> mRenderer;
 
    Own<ImGuiContext*> mContext;
    Own<ImGuiIO*> mIO;
