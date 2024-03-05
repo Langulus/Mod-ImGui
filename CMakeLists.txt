@@ -12,16 +12,19 @@ fetch_external_module(
     GIT_TAG         bcfc1ad # master
 )
 
+file(GLOB_RECURSE
+	LANGULUS_MOD_IMGUI_SOURCES 
+	LIST_DIRECTORIES FALSE CONFIGURE_DEPENDS
+	source/*.cpp
+)
+
 # Build the module                                                              
 add_library(LangulusModImGui SHARED
 	${ImGui_SOURCE_DIR}/imgui.cpp
     ${ImGui_SOURCE_DIR}/imgui_draw.cpp
     ${ImGui_SOURCE_DIR}/imgui_widgets.cpp
     ${ImGui_SOURCE_DIR}/imgui_tables.cpp
-    source/GUI.cpp
-    source/GUISystem.cpp
-    source/GUIItem.cpp
-    source/GUIFont.cpp
+    ${LANGULUS_MOD_IMGUI_SOURCES}
 )
 
 target_link_libraries(LangulusModImGui 
