@@ -15,6 +15,9 @@ struct GUISystem;
 struct GUIItem;
 struct GUIFont;
 
+#define VERBOSE_GUI(...)      Logger::Verbose(Self(), __VA_ARGS__)
+#define VERBOSE_GUI_TAB(...)  const auto tab = Logger::Verbose(Self(), __VA_ARGS__, Logger::Tabs {})
+
 /// Include ImGui                                                             
 #include <imgui.h>
 

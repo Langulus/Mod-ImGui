@@ -32,10 +32,12 @@ void SetClipboardText(void* user_data, const char* text) {
 ///   @param producer - the system producer                                   
 ///   @param descriptor - instructions for configuring the GUI                
 GUISystem::GUISystem(GUI* producer, const Neat& descriptor)
-   : A::UI::System {MetaOf<GUISystem>(), descriptor}
+   : A::UI::System {MetaOf<GUISystem>()}
    , ProducedFrom {producer, descriptor}
    , mItems {this}
    , mFonts {this} {
+   VERBOSE_GUI("Initializing...");
+
    // Retrieve relevant traits from the environment                     
    mWindow = SeekUnitAux<A::Window>(descriptor);
    LANGULUS_ASSERT(mWindow, Construct,
@@ -286,6 +288,7 @@ GUISystem::GUISystem(GUI* producer, const Neat& descriptor)
          vkCreateGraphicsPipelines(device, pipelineCache, 1, &info, allocator, pipeline);
       }
    }*/
+   VERBOSE_GUI("Initialized");
 }
 
 /// GUI system destruction                                                    

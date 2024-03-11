@@ -19,9 +19,9 @@ LANGULUS_DEFINE_MODULE(
 GUI::GUI(Runtime* runtime, const Neat&)
    : A::UI::Module {MetaOf<GUI>(), runtime}
    , mSystems {this} {
-   Logger::Verbose(Self(), "Initializing...");
+   VERBOSE_GUI("Initializing...");
    IMGUI_CHECKVERSION();
-   Logger::Verbose(Self(), "Initialized");
+   VERBOSE_GUI("Initialized");
 }
 
 /// Module update routine                                                     

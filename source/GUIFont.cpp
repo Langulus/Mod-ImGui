@@ -15,8 +15,10 @@
 ///   @param producer - the system producer                                   
 ///   @param descriptor - instructions for configuring the font               
 GUIFont::GUIFont(GUISystem* producer, const Neat& descriptor)
-   : A::UI::Unit {MetaOf<GUIFont>(), descriptor}
+   : A::UI::Unit {MetaOf<GUIFont>()}
    , ProducedFrom {producer, descriptor} {
+   VERBOSE_GUI("Initializing...");
+
    // Font filename/system name to load                                 
    Text filename;
    SeekValueAux<Traits::Name>(descriptor, filename);
@@ -236,4 +238,5 @@ struct ImFontConfig {
       // Store our identifier
       io->SetTexID((ImTextureID)bd->FontDescriptorSet);*/
    }
+   VERBOSE_GUI("Initialized");
 }
