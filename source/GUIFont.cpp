@@ -7,8 +7,9 @@
 ///                                                                           
 #include "GUIItem.hpp"
 #include "GUI.hpp"
-#include <Math/Color.hpp>
-#include <Flow/Verbs/Interpret.hpp>
+//#include <Math/Color.hpp>
+//#include <Flow/Verbs/Interpret.hpp>
+#include <Langulus/Image.hpp>
 
 
 /// GUI item construction                                                     
@@ -106,7 +107,7 @@ struct ImFontConfig {
          Traits::Path {filename},
          Traits::Size {fontAtlasWidth, fontAtlasHeight},
          Traits::Data {
-            Block {{}, MetaOf<RGBA>(), pixelCount, fontData}
+            Block {{}, MetaOf<Math::RGBA>(), pixelCount, fontData}
          }
       )
    };

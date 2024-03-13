@@ -8,6 +8,8 @@
 #pragma once
 #include "GUIItem.hpp"
 #include "GUIFont.hpp"
+#include <Langulus/Platform.hpp>
+#include <Langulus/Graphics.hpp>
 
 
 ///                                                                           

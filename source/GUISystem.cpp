@@ -5,7 +5,6 @@
 /// Distributed under GNU General Public License v3+                          
 /// See LICENSE file, or https://www.gnu.org/licenses                         
 ///                                                                           
-#include "GUISystem.hpp"
 #include "GUI.hpp"
 
 

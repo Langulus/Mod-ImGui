@@ -6,7 +6,9 @@
 /// See LICENSE file, or https://www.gnu.org/licenses                         
 ///                                                                           
 #include "Main.hpp"
-#include <Entity/Thing.hpp>
+#include <Langulus/Platform.hpp>
+#include <Langulus/Graphics.hpp>
+#include <Langulus/UI.hpp>
 #include <catch2/catch.hpp>
 
 
