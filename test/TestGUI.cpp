@@ -25,12 +25,7 @@ SCENARIO("GUI creation", "[gui]") {
    for (int repeat = 0; repeat != 10; ++repeat) {
       GIVEN(std::string("Init and shutdown cycle #") + std::to_string(repeat)) {
          // Create root entity                                          
-         Thing root;
-         root.SetName("ROOT");
-         root.CreateRuntime();
-         root.LoadMod("GLFW");
-         root.LoadMod("Vulkan");
-         root.LoadMod("ImGui");
+         auto root = Thing::Root<false>("GLFW", "Vulkan", "ImGui");
 
          WHEN("The GUI system is created via abstractions") {
             auto window = root.CreateUnit<A::Window>(Traits::Size(640, 480));
