@@ -33,7 +33,7 @@ SCENARIO("GUI creation", "[gui]") {
             auto gui = root.CreateUnit<A::UI::System>();
 
             // Update once                                              
-            root.Update(Time::zero());
+            root.Update({});
             root.DumpHierarchy();
 
             REQUIRE(window.GetCount() == 1);
@@ -58,7 +58,7 @@ SCENARIO("GUI creation", "[gui]") {
             auto gui = root.CreateUnitToken("GUISystem");
 
             // Update once                                              
-            root.Update(Time::zero());
+            root.Update({});
             root.DumpHierarchy();
 
             REQUIRE(window.GetCount() == 1);
