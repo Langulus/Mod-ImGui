@@ -52,7 +52,7 @@ private:
    TFactoryUnique<GUIFont> mFonts;
 
 public:
-   GUISystem(GUI*, const Neat&);
+   GUISystem(GUI*, Describe);
    ~GUISystem();
 
    void Create(Verb&);

@@ -12,8 +12,8 @@
 /// GUI item construction                                                     
 ///   @param producer - the system producer                                   
 ///   @param descriptor - instructions for configuring the item               
-GUIItem::GUIItem(GUISystem* producer, const Neat& descriptor)
-   : A::UI::Unit {MetaOf<GUIItem>()}
+GUIItem::GUIItem(GUISystem* producer, Describe descriptor)
+   : A::UIUnit    {MetaOf<GUIItem>()}
    , ProducedFrom {producer, descriptor} {
    VERBOSE_GUI("Initializing...");
    VERBOSE_GUI("Initialized");

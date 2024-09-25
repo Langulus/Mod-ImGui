@@ -12,17 +12,17 @@
 ///                                                                           
 ///   GUI font                                                                
 ///                                                                           
-struct GUIFont final : A::UI::Unit, ProducedFrom<GUISystem> {
+struct GUIFont final : A::UIUnit, ProducedFrom<GUISystem> {
    LANGULUS(ABSTRACT) false;
    LANGULUS(PRODUCER) GUISystem;
-   LANGULUS_BASES(A::UI::Unit);
+   LANGULUS_BASES(A::UIUnit);
 
 private:
-   Own<ImFont*> mFont;
+   Own<ImFont*>  mFont;
    Ref<A::Image> mAtlas;
 
 public:
-   GUIFont(GUISystem*, const Neat&);
+   GUIFont(GUISystem*, Describe);
 
    void Refresh() {}
 };

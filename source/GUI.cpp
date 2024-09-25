@@ -16,9 +16,9 @@ LANGULUS_DEFINE_MODULE(
 /// Module construction                                                       
 ///   @param runtime - the runtime that owns the module                       
 ///   @param descriptor - instructions for configuring the module             
-GUI::GUI(Runtime* runtime, const Neat&)
-   : A::UI::Module {MetaOf<GUI>(), runtime}
-   , mSystems {this} {
+GUI::GUI(Runtime* runtime, Describe)
+   : A::UIModule {MetaOf<GUI>(), runtime}
+   , mSystems    {this} {
    VERBOSE_GUI("Initializing...");
    IMGUI_CHECKVERSION();
    VERBOSE_GUI("Initialized");

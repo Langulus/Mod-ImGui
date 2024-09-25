@@ -15,13 +15,13 @@
 ///                                                                           
 /// A single widget inside of a GUI system                                    
 ///                                                                           
-struct GUIItem final : A::UI::Unit, ProducedFrom<GUISystem> {
+struct GUIItem final : A::UIUnit, ProducedFrom<GUISystem> {
    LANGULUS(ABSTRACT) false;
    LANGULUS(PRODUCER) GUISystem;
-   LANGULUS_BASES(A::UI::Unit);
+   LANGULUS_BASES(A::UIUnit);
 
 public:
-   GUIItem(GUISystem*, const Neat&);
+   GUIItem(GUISystem*, Describe);
 
    void Refresh();
 };
