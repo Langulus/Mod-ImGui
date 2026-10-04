@@ -13,13 +13,13 @@
 ///   GUI font                                                                
 ///                                                                           
 struct GUIFont final : A::UIUnit, ProducedFrom<GUISystem> {
-   LANGULUS(ABSTRACT) false;
-   LANGULUS(PRODUCER) GUISystem;
+   using CTTI_Abstract = No;
+   using CTTI_Producer = GUISystem;
    LANGULUS_BASES(A::UIUnit);
 
 private:
    Own<ImFont*>  mFont;
-   Ref<A::Image> mAtlas;
+   Ref<Things::Image> mAtlas;
 
 public:
    GUIFont(GUISystem*, Describe);

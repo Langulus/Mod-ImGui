@@ -8,7 +8,7 @@
 #pragma once
 #include "GUIItem.hpp"
 #include "GUIFont.hpp"
-#include <Langulus/Platform.hpp>
+#include <Langulus/CppAPI/Platform.hpp>
 #include <Langulus/Graphics.hpp>
 
 
@@ -19,14 +19,14 @@
 /// isolated system                                                           
 ///                                                                           
 struct GUISystem final : A::UI::System, ProducedFrom<GUI> {
-   LANGULUS(ABSTRACT) false;
-   LANGULUS(PRODUCER) GUI;
+   using CTTI_Abstract = No;
+   using CTTI_Producer = GUI;
    LANGULUS_BASES(A::UI::System);
    LANGULUS_VERBS(Verbs::Create);
 
 private:
-   Ref<A::Window> mWindow;
-   Ref<A::Renderer> mRenderer;
+   Ref<Things::Window> mWindow;
+   Ref<Things::Renderer> mRenderer;
 
    Own<ImGuiContext*> mContext;
    Own<ImGuiIO*> mIO;

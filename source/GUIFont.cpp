@@ -102,7 +102,7 @@ struct ImFontConfig {
    auto pixelCount = static_cast<Count>(fontAtlasWidth * fontAtlasHeight);
    Text fontName {"Font ", filename, ' ', size};
    Verbs::Create createTexture {
-      Construct::From<A::Image>(
+      Construct::From<Things::Image>(
          Traits::Name {fontName},
          Traits::Path {filename},
          Traits::Size {fontAtlasWidth, fontAtlasHeight},
@@ -113,7 +113,7 @@ struct ImFontConfig {
    };
 
    // Store atlas and identifier                                        
-   mAtlas = RunIn(createTexture)->As<A::Image*>();
+   mAtlas = RunIn(createTexture)->As<Things::Image*>();
    io->SetTexID(mAtlas->GetGPUHandle());
 
 

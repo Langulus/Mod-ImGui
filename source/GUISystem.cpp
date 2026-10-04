@@ -13,7 +13,7 @@
 ///   @return a pointer to the clipboard text data (null-terminated)          
 const char* GetClipboardText(void* user_data) {
    auto system = static_cast<GUISystem*>(user_data);
-   system->GetWindow()->GetTrait<Traits::Clipboard>(system->GetClipboard());
+   system->GetWindow()->GetTag<Traits::Clipboard>(system->GetClipboard());
    system->GetClipboard() = system->GetClipboard().Terminate();
    return system->GetClipboard().GetRaw();
 }
@@ -38,11 +38,11 @@ GUISystem::GUISystem(GUI* producer, Describe descriptor)
    VERBOSE_GUI("Initializing...");
 
    // Retrieve relevant traits from the environment                     
-   mWindow = SeekUnitAux<A::Window>(descriptor);
+   mWindow = SeekUnitAux<Things::Window>(descriptor);
    LANGULUS_ASSERT(mWindow, Construct,
       "No window available for renderer");
 
-   mRenderer = SeekUnitAux<A::Renderer>(descriptor);
+   mRenderer = SeekUnitAux<Things::Renderer>(descriptor);
    LANGULUS_ASSERT(mRenderer, Construct,
       "No renderer available for UI");
 

@@ -6,7 +6,7 @@
 /// SPDX-License-Identifier: GPL-3.0-or-later                                 
 ///                                                                           
 #include "Main.hpp"
-#include <Langulus/Platform.hpp>
+#include <Langulus/CppAPI/Platform.hpp>
 #include <Langulus/Graphics.hpp>
 #include <Langulus/UI.hpp>
 #include <catch2/catch.hpp>
@@ -27,8 +27,8 @@ SCENARIO("GUI creation", "[gui]") {
          auto root = Thing::Root<false>("GLFW", "Vulkan", "ImGui");
 
          WHEN("The GUI system is created via abstractions") {
-            auto window = root.CreateUnit<A::Window>(Traits::Size(640, 480));
-            auto renderer = root.CreateUnit<A::Renderer>();
+            auto window = root.CreateUnit<Things::Window>(Traits::Size(640, 480));
+            auto renderer = root.CreateUnit<Things::Renderer>();
             auto gui = root.CreateUnit<A::UI::System>();
 
             // Update once                                              
@@ -36,11 +36,11 @@ SCENARIO("GUI creation", "[gui]") {
             root.DumpHierarchy();
 
             REQUIRE(window.GetCount() == 1);
-            REQUIRE(window.CastsTo<A::Window>(1));
+            REQUIRE(window.CastsTo<Things::Window>(1));
             REQUIRE(window.IsSparse());
 
             REQUIRE(renderer.GetCount() == 1);
-            REQUIRE(renderer.CastsTo<A::Renderer>(1));
+            REQUIRE(renderer.CastsTo<Things::Renderer>(1));
             REQUIRE(renderer.IsSparse());
 
             REQUIRE(gui.GetCount() == 1);
@@ -61,11 +61,11 @@ SCENARIO("GUI creation", "[gui]") {
             root.DumpHierarchy();
 
             REQUIRE(window.GetCount() == 1);
-            REQUIRE(window.CastsTo<A::Window>(1));
+            REQUIRE(window.CastsTo<Things::Window>(1));
             REQUIRE(window.IsSparse());
 
             REQUIRE(renderer.GetCount() == 1);
-            REQUIRE(renderer.CastsTo<A::Renderer>(1));
+            REQUIRE(renderer.CastsTo<Things::Renderer>(1));
             REQUIRE(renderer.IsSparse());
 
             REQUIRE(gui.GetCount() == 1);

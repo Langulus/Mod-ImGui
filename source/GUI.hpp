@@ -15,7 +15,7 @@
 /// Manages and produces GUI systems                                          
 ///                                                                           
 struct GUI final : A::UI::Module {
-   LANGULUS(ABSTRACT) false;
+   using CTTI_Abstract = No;
    LANGULUS_BASES(A::UI::Module);
    LANGULUS_VERBS(Verbs::Create);
 
