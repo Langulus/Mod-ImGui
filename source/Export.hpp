@@ -7,7 +7,7 @@
 ///                                                                           
 #pragma once
 #include <Langulus.hpp>
-#include <Langulus/UI.hpp>
+#include <Langulus/CppAPI/UI.hpp>
 
 using namespace Langulus;
 

@@ -9,7 +9,7 @@
 #include "GUIItem.hpp"
 #include "GUIFont.hpp"
 #include <Langulus/CppAPI/Platform.hpp>
-#include <Langulus/Graphics.hpp>
+#include <Langulus/CppAPI/Graphics.hpp>
 
 
 ///                                                                           

@@ -7,8 +7,8 @@
 ///                                                                           
 #include "Main.hpp"
 #include <Langulus/CppAPI/Platform.hpp>
-#include <Langulus/Graphics.hpp>
-#include <Langulus/UI.hpp>
+#include <Langulus/CppAPI/Graphics.hpp>
+#include <Langulus/CppAPI/UI.hpp>
 #include <catch2/catch.hpp>
 
 
