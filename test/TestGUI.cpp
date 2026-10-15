@@ -52,9 +52,9 @@ SCENARIO("GUI creation", "[gui]") {
 
       #if LANGULUS_FEATURE(MANAGED_REFLECTION)
          WHEN("The GUI system is created via tokens") {
-            auto window = root.CreateUnitToken("Window", Traits::Size(640, 480));
-            auto renderer = root.CreateUnitToken("Renderer");
-            auto gui = root.CreateUnitToken("GUISystem");
+            auto window = root.CreatePartToken("Window", Traits::Size(640, 480));
+            auto renderer = root.CreatePartToken("Renderer");
+            auto gui = root.CreatePartToken("GUISystem");
 
             // Update once                                              
             root.Update({});
