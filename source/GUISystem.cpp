@@ -37,7 +37,7 @@ GUISystem::GUISystem(GUI* producer, Describe descriptor)
    , mFonts {this} {
    VERBOSE_GUI("Initializing...");
 
-   // Retrieve relevant traits from the environment                     
+   // Retrieve relevant tags from the environment                     
    mWindow = SeekUnitAux<Things::Window>(descriptor);
    LANGULUS_ASSERT(mWindow, Construct,
       "No window available for renderer");
