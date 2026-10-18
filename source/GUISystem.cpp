@@ -39,12 +39,10 @@ GUISystem::GUISystem(GUI* producer, Describe descriptor)
 
    // Retrieve relevant tags from the environment                     
    mWindow = SeekUnitAux<Things::Window>(descriptor);
-   LANGULUS_ASSERT(mWindow, Construct,
-      "No window available for renderer");
+   LglsAssert(mWindow, "No window available for renderer");
 
    mRenderer = SeekUnitAux<Things::Renderer>(descriptor);
-   LANGULUS_ASSERT(mRenderer, Construct,
-      "No renderer available for UI");
+   LglsAssert(mRenderer, "No renderer available for UI");
 
    // Create the context for the GUI system                             
    mContext = ImGui::CreateContext();

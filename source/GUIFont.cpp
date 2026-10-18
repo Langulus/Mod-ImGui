@@ -16,15 +16,14 @@
 ///   @param producer - the system producer                                   
 ///   @param descriptor - instructions for configuring the font               
 GUIFont::GUIFont(GUISystem* producer, Describe descriptor)
-   : A::UIUnit    {MetaOf<GUIFont>()}
+   : Things::UIUnit    {MetaOf<GUIFont>()}
    , ProducedFrom {producer, descriptor} {
    VERBOSE_GUI("Initializing...");
 
    // Font filename/system name to load                                 
    Text filename;
    SeekValueAux<Traits::Name>(descriptor, filename);
-   LANGULUS_ASSERT(filename, Construct,
-      "Empty system name/filename for font");
+   LglsAssert(filename, "Empty system name/filename for font");
    filename = filename.Terminate();
 
    // Font size                                                         
@@ -83,8 +82,7 @@ struct ImFontConfig {
          filename.GetRaw(), size, NULL, io->GetGlyphRangesCyrillic()
       );
 
-   LANGULUS_ASSERT(mFont, Construct,
-      "Couldn't AddFontFromFileTTF: ", filename);
+   LglsAssert(mFont, "Couldn't AddFontFromFileTTF: ", filename);
 
    // The fonts will be rasterized at a given size (w/ oversampling)    
    // and stored into a texture when calling ImFontAtlas::Build() or    
