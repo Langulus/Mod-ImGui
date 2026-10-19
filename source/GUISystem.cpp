@@ -24,7 +24,7 @@ const char* GetClipboardText(void* user_data) {
 void SetClipboardText(void* user_data, const char* text) {
    auto system = static_cast<GUISystem*>(user_data);
    system->GetClipboard() = Text {text}.Terminate();
-   system->GetWindow()->SetTrait<Traits::Clipboard>(system->GetClipboard());
+   system->GetWindow()->SetTag<Traits::Clipboard>(system->GetClipboard());
 }
 
 /// GUI system construction                                                   
