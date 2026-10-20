@@ -15,10 +15,10 @@
 ///                                                                           
 /// A single widget inside of a GUI system                                    
 ///                                                                           
-struct GUIItem final : A::UIUnit, ProducedFrom<GUISystem> {
+struct GUIItem final : Things::UIUnit, ProducedFrom<GUISystem> {
    using CTTI_Abstract = No;
    using CTTI_Producer = GUISystem;
-   LANGULUS_BASES(A::UIUnit);
+   LANGULUS_BASES(Things::UIUnit);
 
 public:
    GUIItem(GUISystem*, Describe);
