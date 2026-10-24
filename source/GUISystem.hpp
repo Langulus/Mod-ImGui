@@ -6,7 +6,7 @@
 /// SPDX-License-Identifier: GPL-3.0-or-later                                 
 ///                                                                           
 #pragma once
-#include "GUIItem.hpp"
+#include "GUIPart.hpp"
 #include "GUIFont.hpp"
 #include <Langulus/CppAPI/Platform.hpp>
 #include <Langulus/CppAPI/Graphics.hpp>
@@ -48,7 +48,7 @@ private:
    GLFWmonitorfun          PrevUserCallbackMonitor;*/
 
    // List of created GUI items                                         
-   TFactory<GUIItem> mItems;
+   TFactory<GUIPart> mItems;
    TFactoryUnique<GUIFont> mFonts;
 
 public:

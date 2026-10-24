@@ -5,7 +5,7 @@
 ///                                                                           
 /// SPDX-License-Identifier: GPL-3.0-or-later                                 
 ///                                                                           
-#include "GUIItem.hpp"
+#include "GUIPart.hpp"
 #include "GUI.hpp"
 //#include <Math/Color.hpp>
 //#include <Flow/Verbs/Interpret.hpp>
@@ -16,7 +16,7 @@
 ///   @param producer - the system producer                                   
 ///   @param descriptor - instructions for configuring the font               
 GUIFont::GUIFont(GUISystem* producer, Describe descriptor)
-   : Things::UIUnit    {MetaOf<GUIFont>()}
+   : Things::UIPart    {MetaOf<GUIFont>()}
    , ProducedFrom {producer, descriptor} {
    VERBOSE_GUI("Initializing...");
 

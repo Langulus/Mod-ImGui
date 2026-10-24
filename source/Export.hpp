@@ -13,7 +13,7 @@ using namespace Langulus;
 
 struct GUI;
 struct GUISystem;
-struct GUIItem;
+struct GUIPart;
 struct GUIFont;
 
 #if 0

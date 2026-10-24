@@ -12,10 +12,10 @@
 ///                                                                           
 ///   GUI font                                                                
 ///                                                                           
-struct GUIFont final : Things::UIUnit, ProducedFrom<GUISystem> {
+struct GUIFont final : Things::UIPart, ProducedFrom<GUISystem> {
    using CTTI_Abstract = No;
    using CTTI_Producer = GUISystem;
-   LANGULUS_BASES(Things::UIUnit);
+   LANGULUS_BASES(Things::UIPart);
 
 private:
    Own<ImFont*>  mFont;

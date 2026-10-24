@@ -10,7 +10,7 @@
 LANGULUS_DEFINE_MODULE(
    GUI, 9, "ImGui",
    "GUI generator and simulator, using ImGui as backend", "",
-   GUI, GUISystem, GUIItem
+   GUI, GUISystem, GUIPart
 )
 
 /// Module construction                                                       
