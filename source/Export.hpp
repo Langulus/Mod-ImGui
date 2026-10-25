@@ -17,8 +17,8 @@ struct GUIPart;
 struct GUIFont;
 
 #if 0
-   #define VERBOSE_GUI(...)      Logger::Verbose(Self(), __VA_ARGS__)
-   #define VERBOSE_GUI_TAB(...)  const auto tab = Logger::VerboseTab(Self(), __VA_ARGS__)
+   #define VERBOSE_GUI(...)      Logger::Verbose(this, __VA_ARGS__)
+   #define VERBOSE_GUI_TAB(...)  const auto tab = Logger::VerboseTab(this, __VA_ARGS__)
 #else
    #define VERBOSE_GUI(...)      LANGULUS(NOOP)
    #define VERBOSE_GUI_TAB(...)  LANGULUS(NOOP)

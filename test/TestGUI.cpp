@@ -27,7 +27,7 @@ SCENARIO("GUI creation", "[gui]") {
          auto root = Thing::Root<false>("GLFW", "Vulkan", "ImGui");
 
          WHEN("The GUI system is created via abstractions") {
-            auto window = root.CreateUnit<Things::Window>(Traits::Size(640, 480));
+            auto window = root.CreateUnit<Things::Window>(Tags::Size(640, 480));
             auto renderer = root.CreateUnit<Things::Renderer>();
             auto gui = root.CreateUnit<A::UI::System>();
 
@@ -52,7 +52,7 @@ SCENARIO("GUI creation", "[gui]") {
 
       #if LANGULUS_FEATURE(MANAGED_REFLECTION)
          WHEN("The GUI system is created via tokens") {
-            auto window = root.CreatePartToken("Window", Traits::Size(640, 480));
+            auto window = root.CreatePartToken("Window", Tags::Size(640, 480));
             auto renderer = root.CreatePartToken("Renderer");
             auto gui = root.CreatePartToken("GUISystem");
 

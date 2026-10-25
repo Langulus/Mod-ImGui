@@ -13,7 +13,7 @@
 ///   @return a pointer to the clipboard text data (null-terminated)          
 const char* GetClipboardText(void* user_data) {
    auto system = static_cast<GUISystem*>(user_data);
-   system->GetWindow()->GetTag<Traits::Clipboard>(system->GetClipboard());
+   system->GetWindow()->GetTag<Tags::Clipboard>(system->GetClipboard());
    system->GetClipboard() = system->GetClipboard().Terminate();
    return system->GetClipboard().GetRaw();
 }
@@ -24,7 +24,7 @@ const char* GetClipboardText(void* user_data) {
 void SetClipboardText(void* user_data, const char* text) {
    auto system = static_cast<GUISystem*>(user_data);
    system->GetClipboard() = Text {text}.Terminate();
-   system->GetWindow()->SetTag<Traits::Clipboard>(system->GetClipboard());
+   system->GetWindow()->SetTag<Tags::Clipboard>(system->GetClipboard());
 }
 
 /// GUI system construction                                                   
@@ -109,8 +109,8 @@ GUISystem::GUISystem(GUI* producer, Describe descriptor)
    // PopFont() to select them.                                         
    Verbs::Create createFont {
       Construct::From<GUIFont>(
-         Traits::Name {"default"},
-         Traits::Size {16.0f}
+         Tags::Name {"default"},
+         Tags::Size {16.0f}
       )
    };
    mFonts.Create(createFont);

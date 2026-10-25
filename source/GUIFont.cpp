@@ -22,13 +22,13 @@ GUIFont::GUIFont(GUISystem* producer, Describe descriptor)
 
    // Font filename/system name to load                                 
    Text filename;
-   SeekValueAux<Traits::Name>(descriptor, filename);
+   SeekValueAux<Tags::Name>(descriptor, filename);
    LglsAssert(filename, "Empty system name/filename for font");
    filename = filename.Terminate();
 
    // Font size                                                         
    float size;
-   if (not SeekTraitAux<Traits::Size>(descriptor, size)) {
+   if (not SeekTraitAux<Tags::Size>(descriptor, size)) {
       // Not found, use default                                         
       size = 16.0f;
    }
@@ -101,10 +101,10 @@ struct ImFontConfig {
    Text fontName {"Font ", filename, ' ', size};
    Verbs::Create createTexture {
       Construct::From<Things::Image>(
-         Traits::Name {fontName},
-         Traits::Path {filename},
-         Traits::Size {fontAtlasWidth, fontAtlasHeight},
-         Traits::Data {
+         Tags::Name {fontName},
+         Tags::Path {filename},
+         Tags::Size {fontAtlasWidth, fontAtlasHeight},
+         Tags::Data {
             Block {{}, MetaOf<Math::RGBA>(), pixelCount, fontData}
          }
       )
