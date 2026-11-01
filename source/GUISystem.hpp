@@ -17,12 +17,11 @@
 ///                                                                           
 /// Manages and produces GUI items that interact with each other within an    
 /// isolated system                                                           
-///                                                                           
-struct GUISystem final : A::UI::System, ProducedFrom<GUI> {
-   using CTTI_Abstract = No;
-   using CTTI_Producer = GUI;
-   LANGULUS_BASES(A::UI::System);
-   LANGULUS_VERBS(Verbs::Create);
+struct GUISystem final : Things::UISystem, ProducedFrom<GUI> {
+   using CTTI_Abstract  = No;
+   using CTTI_Producer  = GUI;
+   using CTTI_Bases     = Things::UISystem;
+   using CTTI_Ability   = Verbs::Create;
 
 private:
    Ref<Things::Window> mWindow;

@@ -14,11 +14,10 @@
 ///   GUI item                                                                
 ///                                                                           
 /// A single widget inside of a GUI system                                    
-///                                                                           
 struct GUIPart final : Things::UIPart, ProducedFrom<GUISystem> {
-   using CTTI_Abstract = No;
-   using CTTI_Producer = GUISystem;
-   LANGULUS_BASES(Things::UIPart);
+   using CTTI_Abstract  = No;
+   using CTTI_Producer  = GUISystem;
+   using CTTI_Bases     = Things::UIPart;
 
 public:
    GUIPart(GUISystem*, Describe);

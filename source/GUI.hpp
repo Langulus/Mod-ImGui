@@ -13,11 +13,10 @@
 ///   User interface module using ImGUI                                       
 ///                                                                           
 /// Manages and produces GUI systems                                          
-///                                                                           
-struct GUI final : A::UI::Module {
-   using CTTI_Abstract = No;
-   LANGULUS_BASES(A::UI::Module);
-   LANGULUS_VERBS(Verbs::Create);
+struct GUI final : Things::UIModule {
+   using CTTI_Abstract  = No;
+   using CTTI_Bases     = Things::UIModule;
+   using CTTI_Ability   = Verbs::Create;
 
 private:
    // List of created GUI systems                                       

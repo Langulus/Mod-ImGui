@@ -6,16 +6,15 @@
 /// SPDX-License-Identifier: GPL-3.0-or-later                                 
 ///                                                                           
 #pragma once
-#include "Common.hpp"
+#include "Export.hpp"
 
 
 ///                                                                           
 ///   GUI font                                                                
-///                                                                           
 struct GUIFont final : Things::UIPart, ProducedFrom<GUISystem> {
-   using CTTI_Abstract = No;
-   using CTTI_Producer = GUISystem;
-   LANGULUS_BASES(Things::UIPart);
+   using CTTI_Abstract  = No;
+   using CTTI_Producer  = GUISystem;
+   using CTTI_Bases     = Things::UIPart;
 
 private:
    Own<ImFont*>  mFont;
