@@ -14,24 +14,24 @@ LANGULUS_DEFINE_MODULE(
 )
 
 /// Module construction                                                       
-///   @param runtime - the runtime that owns the module                       
-///   @param descriptor - instructions for configuring the module             
-GUI::GUI(Runtime* runtime, Describe)
-   : Things::UIModule {MetaOf<GUI>(), runtime}
-   , mSystems    {this} {
+///   @param runtime the runtime that owns the module                         
+///   @param descriptor instructions for configuring the module               
+GUI::GUI(Runtime* runtime, Neat const&)
+   : UIModule {MetaOf<GUI>(), runtime}
+   , mSystems {this} {
    VERBOSE_GUI("Initializing...");
    IMGUI_CHECKVERSION();
    VERBOSE_GUI("Initialized");
 }
 
 /// Module update routine                                                     
-///   @param dt - time from last update                                       
+///   @param dt time from last update                                         
 bool GUI::Update(Time) {
    return true;
 }
 
 /// Create/Destroy GUI systems                                                
-///   @param verb - the creation/destruction verb                             
+///   @param verb the creation/destruction verb                               
 void GUI::Create(Verb& verb) {
    mSystems.Create(verb);
 }

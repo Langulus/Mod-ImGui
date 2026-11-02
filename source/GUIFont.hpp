@@ -17,11 +17,11 @@ struct GUIFont final : Things::UIPart, ProducedFrom<GUISystem> {
    using CTTI_Bases     = Things::UIPart;
 
 private:
-   Own<ImFont*>  mFont;
+   Own<ImFont*>       mFont;
    Ref<Things::Image> mAtlas;
 
 public:
-   GUIFont(GUISystem*, Describe);
+   GUIFont(GUISystem*, Neat const&);
 
    void Refresh() {}
 };

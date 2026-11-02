@@ -13,11 +13,11 @@
 
 
 /// GUI item construction                                                     
-///   @param producer - the system producer                                   
-///   @param descriptor - instructions for configuring the font               
-GUIFont::GUIFont(GUISystem* producer, Describe descriptor)
-   : Things::UIPart    {MetaOf<GUIFont>()}
-   , ProducedFrom {producer, descriptor} {
+///   @param producer the system producer                                     
+///   @param descriptor instructions for configuring the font                 
+GUIFont::GUIFont(GUISystem* producer, Neat const& descriptor)
+   : Things::UIPart  {MetaOf<GUIFont>()}
+   , ProducedFrom    {producer, descriptor} {
    VERBOSE_GUI("Initializing...");
 
    // Font filename/system name to load                                 

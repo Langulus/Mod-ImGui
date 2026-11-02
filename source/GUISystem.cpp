@@ -9,7 +9,7 @@
 
 
 /// Function used by ImGui to retrieve current system clipboard               
-///   @param user_data - pointer to the GUI system                            
+///   @param user_data pointer to the GUI system                              
 ///   @return a pointer to the clipboard text data (null-terminated)          
 const char* GetClipboardText(void* user_data) {
    auto system = static_cast<GUISystem*>(user_data);
@@ -19,8 +19,8 @@ const char* GetClipboardText(void* user_data) {
 }
 
 /// Function used by ImGui to set current system clipboard                    
-///   @param user_data - pointer to the GUI system                            
-///   @param text - text to set                                               
+///   @param user_data pointer to the GUI system                              
+///   @param text text to set                                                 
 void SetClipboardText(void* user_data, const char* text) {
    auto system = static_cast<GUISystem*>(user_data);
    system->GetClipboard() = Text {text}.Terminate();
@@ -28,13 +28,13 @@ void SetClipboardText(void* user_data, const char* text) {
 }
 
 /// GUI system construction                                                   
-///   @param producer - the system producer                                   
-///   @param descriptor - instructions for configuring the GUI                
-GUISystem::GUISystem(GUI* producer, Describe descriptor)
+///   @param producer the system producer                                     
+///   @param descriptor instructions for configuring the GUI                  
+GUISystem::GUISystem(GUI* producer, Neat const& descriptor)
    : Things::UISystem  {MetaOf<GUISystem>()}
    , ProducedFrom {producer, descriptor}
-   , mItems {this}
-   , mFonts {this} {
+   , mItems       {this}
+   , mFonts       {this} {
    VERBOSE_GUI("Initializing...");
 
    // Retrieve relevant tags from the environment                     

@@ -51,7 +51,7 @@ private:
    TFactoryUnique<GUIFont> mFonts;
 
 public:
-   GUISystem(GUI*, Describe);
+   GUISystem(GUI*, Neat const&);
    ~GUISystem();
 
    void Create(Verb&);
@@ -59,9 +59,9 @@ public:
 
    void Refresh();
 
-   NOD() auto GetWindow() const noexcept { return mWindow; }
-   NOD() auto& GetClipboard() noexcept { return mClipboard; }
-   NOD() ImGuiIO* GetIO() const noexcept { return mIO.Get(); }
+   auto  GetWindow() const noexcept { return mWindow; }
+   auto& GetClipboard() noexcept { return mClipboard; }
+   auto  GetIO() const noexcept -> ImGuiIO* { return mIO.Get(); }
 };
 
 

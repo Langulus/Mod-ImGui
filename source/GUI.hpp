@@ -23,7 +23,7 @@ private:
    TFactory<GUISystem> mSystems;
 
 public:
-   GUI(Runtime*, Describe);
+   GUI(Runtime*, Neat const&);
 
    bool Update(Time);
    void Create(Verb&);
