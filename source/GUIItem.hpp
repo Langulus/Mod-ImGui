@@ -20,7 +20,7 @@ struct GUIPart final : Things::UIPart, ProducedFrom<GUISystem> {
    using CTTI_Bases     = Things::UIPart;
 
 public:
-   GUIPart(GUISystem*, Neat const&);
+   GUIPart(GUISystem const*, Neat const&);
 
    void Refresh();
 };

@@ -21,7 +21,7 @@ private:
    Ref<Things::Image> mAtlas;
 
 public:
-   GUIFont(GUISystem*, Neat const&);
+   GUIFont(GUISystem const*, Neat const&);
 
    void Refresh() {}
 };

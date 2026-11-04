@@ -12,7 +12,7 @@
 /// GUI item construction                                                     
 ///   @param producer the system producer                                     
 ///   @param descriptor instructions for configuring the item                 
-GUIPart::GUIPart(GUISystem* producer, Neat const& descriptor)
+GUIPart::GUIPart(GUISystem const* producer, Neat const& descriptor)
    : Things::UIPart  {MetaOf<GUIPart>()}
    , ProducedFrom    {producer, descriptor} {
    VERBOSE_GUI("Initializing...");
