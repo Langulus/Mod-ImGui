@@ -47,7 +47,7 @@ SCENARIO("GUI creation", "[gui]") {
             REQUIRE(gui.CastsTo<A::UI::System>(1));
             REQUIRE(gui.IsSparse());
 
-            REQUIRE(root.GetUnits().GetCount() == 3);
+            REQUIRE(root.GetParts().GetCount() == 3);
          }
 
       #if LANGULUS_FEATURE(MANAGED_REFLECTION)
@@ -72,7 +72,7 @@ SCENARIO("GUI creation", "[gui]") {
             REQUIRE(gui.CastsTo<A::UI::System>(1));
             REQUIRE(gui.IsSparse());
 
-            REQUIRE(root.GetUnits().GetCount() == 3);
+            REQUIRE(root.GetParts().GetCount() == 3);
          }
       #endif
 
