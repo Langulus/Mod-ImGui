@@ -27,9 +27,9 @@ SCENARIO("GUI creation", "[gui]") {
          auto root = Thing::Root<false>("GLFW", "Vulkan", "ImGui");
 
          WHEN("The GUI system is created via abstractions") {
-            auto window = root.CreateUnit<Things::Window>(Tags::Size(640, 480));
-            auto renderer = root.CreateUnit<Things::Renderer>();
-            auto gui = root.CreateUnit<A::UI::System>();
+            auto window = root.CreatePart<Things::Window>(Tags::Size(640, 480));
+            auto renderer = root.CreatePart<Things::Renderer>();
+            auto gui = root.CreatePart<A::UI::System>();
 
             // Update once                                              
             root.Update({});
